@@ -2,7 +2,7 @@
 
 class Holiday
 {
-    public function getCollectionHollydays()
+    public function getCollectionHolidays()
     {
         return [
             [
@@ -39,7 +39,7 @@ class Holiday
             ],
             [
                 'date' => date('d/m/', $this->getDateCorpusChrist()).$this->getYear(),
-                'name' => 'Corpus Cristi',
+                'name' => 'Corpus Christi',
             ],
             [
                 'date' => '07/09/'.$this->getYear(),
@@ -68,12 +68,12 @@ class Holiday
         ];
     }
 
-    public function getYear()
+    private function getYear()
     {
         return date('Y');
     }
 
-    public function getNumberSecondsFromOneDay()
+    private function getNumberSecondsFromOneDay()
     {
         return 60*60*24;
     }

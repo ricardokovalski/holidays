@@ -1,9 +1,13 @@
 <?php
 
-require_once 'src/Holiday.php';
+require __DIR__ . '/vendor/autoload.php';
 
-$holiday = new Holiday();
-$collection = $holiday->getCollectionHolidays();
+use Holidays\Christmas;
 
-echo "<pre>";
-var_dump($collection);
+$Christmas = new Christmas();
+$test = $Christmas->getNameHoliday();
+echo $test;
+
+
+
+

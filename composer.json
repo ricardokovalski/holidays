@@ -1,0 +1,23 @@
+{
+    "name": "ricardokovalski/holidays",
+    "type": "library",
+    "require-dev": {
+        "phpunit/phpunit": "^5.7"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ricardo Kovalski",
+            "email": "ricardokovalskicruz@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.6.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "Holidays\\": "src/"
+        }
+    }
+}

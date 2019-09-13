@@ -1,5 +1,7 @@
 <?php
 
+namespace Holidays;
+
 class Holiday
 {
     public function getCollectionHolidays()
@@ -26,7 +28,7 @@ class Holiday
                 'name' => 'Sexta-feira Santa',
             ],
             [
-                'date' => date('d/m/', $this->getDateChristmas()).$this->getYear(),
+                'date' => date('d/m/', $this->getDateEaster()).$this->getYear(),
                 'name' => 'Páscoa',
             ],
             [
@@ -78,28 +80,28 @@ class Holiday
         return 60*60*24;
     }
 
-    private function getDateChristmas()
+    private function getDateEaster()
     {
         return easter_date();
     }
 
     private function getDateGoodFriday()
     {
-        return $this->getDateChristmas() - (2 * $this->getNumberSecondsFromOneDay());
+        return $this->getDateEaster() - (2 * $this->getNumberSecondsFromOneDay());
     }
 
     private function getDateCarnival()
     {
-        return $this->getDateChristmas() - (47 * $this->getNumberSecondsFromOneDay());
+        return $this->getDateEaster() - (47 * $this->getNumberSecondsFromOneDay());
     }
 
     private function getDateAshWednesday()
     {
-        return $this->getDateChristmas() - (46 * $this->getNumberSecondsFromOneDay());
+        return $this->getDateEaster() - (46 * $this->getNumberSecondsFromOneDay());
     }
 
     private function getDateCorpusChrist()
     {
-        return $this->getDateChristmas() - (60 * $this->getNumberSecondsFromOneDay());
+        return $this->getDateEaster() - (60 * $this->getNumberSecondsFromOneDay());
     }
 }

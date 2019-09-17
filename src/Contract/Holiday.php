@@ -1,8 +1,8 @@
 <?php
 
-namespace Holidays;
+namespace Holidays\Contract;
 
-interface HolidayInterface
+interface Holiday
 {
     public function getNameHoliday();
 

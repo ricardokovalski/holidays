@@ -2,18 +2,22 @@
 
 namespace Holidays;
 
-abstract class AbstractHoliday implements HolidayInterface
+use Holidays\Contract\Holiday;
+
+abstract class AbstractHoliday implements Holiday
 {
-    abstract protected function setName();
-    abstract protected function setDate();
+    abstract protected function name();
+    abstract protected function date();
+    abstract protected function day();
+    abstract protected function month();
 
     public function getNameHoliday()
     {
-        return $this->setName();
+        return $this->name();
     }
 
     public function getDateHoliday()
     {
-        return $this->setDate();
+        return sprintf("%d/%d/%d", $this->day(), $this->month(), date("Y"));
     }
 }

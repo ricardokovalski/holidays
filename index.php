@@ -2,12 +2,12 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
-use Holidays\Christmas;
+use Holidays\Types\Christmas;
 
 $Christmas = new Christmas();
-$test = $Christmas->getNameHoliday();
-echo $test;
 
+echo $Christmas->getNameHoliday().PHP_EOL;
+echo $Christmas->getDateHoliday().PHP_EOL;
 
 
 

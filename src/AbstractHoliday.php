@@ -18,6 +18,26 @@ abstract class AbstractHoliday implements Holiday
 
     public function getDateHoliday()
     {
-        return sprintf("%d/%d/%d", $this->day(), $this->month(), date("Y"));
+        return $this->formatter();
+    }
+
+    public function year()
+    {
+        return date("Y");
+    }
+
+    public function getNumberSecondsFromOneDay()
+    {
+        return 60*60*24;
+    }
+
+    public function getDateEaster()
+    {
+        return easter_date();
+    }
+
+    public function formatter()
+    {
+        return $this->date();
     }
 }

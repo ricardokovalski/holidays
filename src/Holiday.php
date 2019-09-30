@@ -102,6 +102,6 @@ class Holiday
 
     private function getDateCorpusChrist()
     {
-        return $this->getDateEaster() - (60 * $this->getNumberSecondsFromOneDay());
+        return $this->getDateEaster() + (60 * $this->getNumberSecondsFromOneDay());
     }
 }

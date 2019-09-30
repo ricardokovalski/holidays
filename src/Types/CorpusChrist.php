@@ -4,26 +4,25 @@ namespace Holidays\Types;
 
 use Holidays\AbstractHoliday;
 
-class Christmas extends AbstractHoliday
+class CorpusChrist extends AbstractHoliday
 {
     protected function name()
     {
-        return "Natal";
+        return "CorpusChrist";
     }
 
     protected function date()
     {
-        $date = sprintf("%d-%d-%d", $this->year(), $this->month(), $this->day());
-        return date("d/m/Y", strtotime($date));
+        return date('d/m/Y', $this->getDateEaster() + (60 * $this->getNumberSecondsFromOneDay()));
     }
 
     protected function day()
     {
-        return 25;
+        return 0;
     }
 
     protected function month()
     {
-        return 12;
+        return 0;
     }
 }

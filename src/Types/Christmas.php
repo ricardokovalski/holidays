@@ -14,7 +14,7 @@ class Christmas extends AbstractHoliday
     protected function date()
     {
         $date = sprintf("%d-%d-%d", $this->year(), $this->month(), $this->day());
-        return date("d/m/Y", strtotime($date));
+        return date($this->formatter(), strtotime($date));
     }
 
     protected function day()
@@ -25,5 +25,10 @@ class Christmas extends AbstractHoliday
     protected function month()
     {
         return 12;
+    }
+
+    public function formatter()
+    {
+        return "d/m/Y";
     }
 }

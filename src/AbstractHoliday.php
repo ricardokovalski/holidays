@@ -11,6 +11,11 @@ abstract class AbstractHoliday implements Holiday
     abstract protected function day();
     abstract protected function month();
 
+    public function formatter()
+    {
+        return "Y-m-d";
+    }
+
     public function getNameHoliday()
     {
         return $this->name();
@@ -21,22 +26,27 @@ abstract class AbstractHoliday implements Holiday
         return $this->date();
     }
 
-    public function formatter()
+    public function getDayHoliday()
     {
-        return "Y-m-d";
+        return $this->day();
     }
 
-    public function year()
+    public function getMonthHoliday()
+    {
+        return $this->month();
+    }
+
+    protected function year()
     {
         return date("Y");
     }
 
-    public function getNumberSecondsFromOneDay()
+    protected function getNumberSecondsFromOneDay()
     {
         return 60*60*24;
     }
 
-    public function getDateEaster()
+    protected function getDateEaster()
     {
         return easter_date();
     }

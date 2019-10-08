@@ -14,7 +14,8 @@ class Christmas extends AbstractHoliday
 
     protected function date()
     {
-        return date($this->formatter(), strtotime(Helper::dateUnformatted($this->year().$this->month().$this->day())));
+        $date = Helper::dateUnformatted($this->year().$this->month().$this->day());
+        return date($this->formatter(), strtotime($date));
     }
 
     protected function day()

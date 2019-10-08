@@ -13,21 +13,26 @@ class CorpusChrist extends AbstractHoliday
 
     protected function date()
     {
-        return date($this->formatter(), $this->getDateEaster() + (60 * $this->getNumberSecondsFromOneDay()));
+        return date($this->formatter(), $this->timestamp());
     }
 
     protected function day()
     {
-        // TODO: Implement day() method.
+        return date("d", $this->timestamp());
     }
 
     protected function month()
     {
-        // TODO: Implement month() method.
+        return date("m", $this->timestamp());
     }
 
     public function formatter()
     {
         return "d/m/Y";
+    }
+
+    public function timestamp()
+    {
+        return $this->getDateEaster() + (60 * $this->getNumberSecondsFromOneDay());
     }
 }

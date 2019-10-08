@@ -21,6 +21,11 @@ abstract class AbstractHoliday implements Holiday
         return $this->date();
     }
 
+    public function formatter()
+    {
+        return "Y-m-d";
+    }
+
     public function year()
     {
         return date("Y");
@@ -34,10 +39,5 @@ abstract class AbstractHoliday implements Holiday
     public function getDateEaster()
     {
         return easter_date();
-    }
-
-    public function formatter()
-    {
-        return "Y-m-d";
     }
 }

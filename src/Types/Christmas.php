@@ -3,6 +3,7 @@
 namespace Holidays\Types;
 
 use Holidays\AbstractHoliday;
+use Holidays\Helper\Helper;
 
 class Christmas extends AbstractHoliday
 {
@@ -13,8 +14,7 @@ class Christmas extends AbstractHoliday
 
     protected function date()
     {
-        $date = sprintf("%d-%d-%d", $this->year(), $this->month(), $this->day());
-        return date($this->formatter(), strtotime($date));
+        return date($this->formatter(), strtotime(Helper::dateUnformatted($this->year().$this->month().$this->day())));
     }
 
     protected function day()

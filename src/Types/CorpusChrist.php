@@ -18,12 +18,12 @@ class CorpusChrist extends AbstractHoliday
 
     protected function day()
     {
-        return 0;
+        // TODO: Implement day() method.
     }
 
     protected function month()
     {
-        return 0;
+        // TODO: Implement month() method.
     }
 
     public function formatter()

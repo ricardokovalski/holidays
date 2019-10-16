@@ -14,22 +14,26 @@ class Christmas extends AbstractHoliday
 
     protected function date()
     {
-        $date = Helper::dateUnformatted($this->year().$this->month().$this->day());
-        return date($this->formatter(), strtotime($date));
+        return date($this->formatter(), strtotime(Helper::dateUnformatted($this->concatDate())));
     }
 
     protected function day()
     {
-        return 25;
+        return "25";
     }
 
     protected function month()
     {
-        return 12;
+        return "12";
     }
 
     public function formatter()
     {
         return "d/m/Y";
+    }
+
+    public function concatDate()
+    {
+        return $this->year() . $this->month() . $this->day();
     }
 }

@@ -6,14 +6,20 @@ $Christmas = new \Holidays\Types\Christmas();
 $CorpusChristi = new \Holidays\Types\CorpusChrist();
 $Independence = new \Holidays\Types\IndependenceBrazil();
 
-echo $Christmas->getNameHoliday() . PHP_EOL;
-echo $Christmas->getDateHoliday() . PHP_EOL;
+echo $Christmas->getName() . PHP_EOL;
+echo $Christmas->getDate() . PHP_EOL;
+//echo $Christmas->isHolidayNational() . PHP_EOL;
 
-echo $CorpusChristi->getNameHoliday() . PHP_EOL;
-echo $CorpusChristi->getDateHoliday() . PHP_EOL;
+/*echo $CorpusChristi->getName() . PHP_EOL;
+echo $CorpusChristi->getDate() . PHP_EOL;
+echo $CorpusChristi->isHolidayNational() . PHP_EOL;*/
 
-echo $Independence->getNameHoliday() . PHP_EOL;
-echo $Independence->getDateHoliday() . PHP_EOL;
+echo $Independence->getName() . PHP_EOL;
+echo $Independence->getDate() . PHP_EOL;
+//echo $Independence->isHolidayNational() . PHP_EOL;
+
+//echo "<pre>";
+//var_dump($CorpusChristi->getName());
 
 
 

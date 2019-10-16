@@ -31,6 +31,11 @@ class CorpusChrist extends AbstractHoliday
         return "d/m/Y";
     }
 
+    public function isHolidayNational()
+    {
+        return false;
+    }
+
     public function timestamp()
     {
         return $this->getDateEaster() + (60 * $this->getNumberSecondsFromOneDay());

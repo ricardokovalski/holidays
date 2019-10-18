@@ -16,22 +16,7 @@ class CorpusChrist extends AbstractHoliday
         return date($this->formatter(), $this->timestamp());
     }
 
-    protected function day()
-    {
-        return date("d", $this->timestamp());
-    }
-
-    protected function month()
-    {
-        return date("m", $this->timestamp());
-    }
-
-    public function formatter()
-    {
-        return "d/m/Y";
-    }
-
-    public function isHolidayNational()
+    protected function national()
     {
         return false;
     }

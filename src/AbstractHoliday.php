@@ -10,41 +10,32 @@ abstract class AbstractHoliday implements Holiday
 
     protected $date;
 
-    protected $day;
-
-    protected $month;
+    protected $isNational;
 
     public function __construct()
     {
         $this->makeName();
         $this->makeDate();
-        $this->makeDay();
-        $this->makeMonth();
+        $this->makeNational();
     }
 
     abstract protected function name();
     abstract protected function date();
-    abstract protected function day();
-    abstract protected function month();
+    abstract protected function national();
 
-    public function makeName()
+    protected function makeName()
     {
         return $this->name = $this->name();
     }
 
-    public function makeDate()
+    protected function makeDate()
     {
         return $this->date = $this->date();
     }
 
-    public function makeDay()
+    protected function makeNational()
     {
-        return $this->day = $this->day();
-    }
-
-    public function makeMonth()
-    {
-        return $this->month = $this->month();
+        return $this->isNational = $this->national();
     }
 
     public function formatter()
@@ -62,22 +53,12 @@ abstract class AbstractHoliday implements Holiday
         return $this->date;
     }
 
-    public function getDay()
+    public function isNational()
     {
-        return $this->day;
+        return $this->isNational;
     }
 
-    public function getMonth()
-    {
-        return $this->month;
-    }
-
-    public function isHolidayNational()
-    {
-        return true;
-    }
-
-    protected function year()
+    public function getYear()
     {
         return date("Y");
     }

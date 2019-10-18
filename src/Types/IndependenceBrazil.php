@@ -3,7 +3,6 @@
 namespace Holidays\Types;
 
 use Holidays\AbstractHoliday;
-use Holidays\Helper\Helper;
 
 class IndependenceBrazil extends AbstractHoliday
 {
@@ -14,26 +13,16 @@ class IndependenceBrazil extends AbstractHoliday
 
     protected function date()
     {
-        return date($this->formatter(), strtotime(Helper::dateUnformatted($this->concatDate())));
+        return date($this->formatter(), $this->timestamp());
     }
 
-    protected function day()
+    protected function national()
     {
-        return "07";
+        return true;
     }
 
-    protected function month()
+    public function timestamp()
     {
-        return "09";
-    }
-
-    public function formatter()
-    {
-        return "d/m/Y";
-    }
-
-    public function concatDate()
-    {
-        return $this->year() . $this->month() . $this->day();
+        return strtotime($this->getYear() . "-09-07");
     }
 }

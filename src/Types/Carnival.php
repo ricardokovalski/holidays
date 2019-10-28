@@ -4,25 +4,25 @@ namespace Holidays\Types;
 
 use Holidays\AbstractHoliday;
 
-class LaborDay extends AbstractHoliday
+class Carnival extends AbstractHoliday
 {
     protected function name()
     {
-        return "Dia do Trabalhador";
+        return "Carnaval";
     }
-    
+
     protected function date()
     {
         return date($this->formatter(), $this->timestamp());
     }
-    
+
     protected function national()
     {
-        return true;
+        return false;
     }
-    
+
     public function timestamp()
     {
-        return strtotime($this->getYear() . "-05-01");
+        return $this->getDateEaster() - (47 * $this->getNumberSecondsFromOneDay());
     }
 }

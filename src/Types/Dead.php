@@ -2,7 +2,7 @@
 
 namespace Holidays\Types;
 
-use Holidays\AbstractHoliday
+use Holidays\AbstractHoliday;
 
 class Dead extends AbstractHoliday
 {

@@ -57,4 +57,12 @@ class AllHolidays
         return false;
     }
 
+    public function orderByAsc()
+    {
+        usort($this->collection, function($a, $b) {
+            return $a->getName() < $b->getName();
+        });
+        return $this;
+    }
+
 }

@@ -18,7 +18,7 @@ class Easter extends AbstractHoliday
 
     protected function national()
     {
-        return false;
+        return true;
     }
 
     public function timestamp()

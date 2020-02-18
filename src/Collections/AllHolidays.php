@@ -6,7 +6,8 @@ use Holidays\Contract\Holiday;
 
 class AllHolidays
 {
-    protected $collection = [];
+    public $collection = [];
+    public $sortField;
 
     public function __construct()
     {
@@ -35,34 +36,52 @@ class AllHolidays
     }
 
     /**
+     * @return $this
+     */
+    public function orderByName()
+    {
+        $this->sortField = 'getName';
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function orderByDate()
+    {
+        $this->sortField = 'getDate';
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function ascending()
+    {
+        usort($this->collection, function($a, $b) {
+            return $a->{$this->sortField}() > $b->{$this->sortField}();
+        });
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function descending()
+    {
+        usort($this->collection, function($a, $b) {
+            return $a->{$this->sortField}() < $b->{$this->sortField}();
+        });
+
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function getCollection()
     {
         return $this->collection;
     }
-
-    /**
-     * @param Holiday $holiday
-     * @return bool
-     */
-    private function verifyExistsCollection(Holiday $holiday)
-    {
-        foreach ($this->getCollection() as $item) {
-            if ($item->getName() == $holiday->getName()) {
-                return true;
-                break;
-            }
-        }
-        return false;
-    }
-
-    public function orderByAsc()
-    {
-        usort($this->collection, function($a, $b) {
-            return $a->getName() < $b->getName();
-        });
-        return $this;
-    }
-
 }

@@ -12,7 +12,7 @@ class NationalHolidays extends AllHolidays implements HolidayCollection
         $this->make();
     }
 
-    public function make()
+    private function make()
     {
         $holidays = array_filter($this->getCollection(), function ($object) {
             return $object->isNational();

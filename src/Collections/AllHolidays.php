@@ -3,13 +3,19 @@
 namespace Holidays\Collections;
 
 use Holidays\Contract\Holiday;
+use Holidays\Contract\Collection as HolidayCollection;
 
-class AllHolidays
+class AllHolidays implements HolidayCollection
 {
-    public $collection = [];
-    public $sortField;
+    protected $collection = [];
+    protected $sortField;
 
     public function __construct()
+    {
+        $this->make();
+    }
+
+    private function make()
     {
         $this->addHoliday(new \Holidays\Types\Carnival())
             ->addHoliday(new \Holidays\Types\Christmas())
@@ -29,7 +35,7 @@ class AllHolidays
      * @param Holiday $holiday
      * @return $this|bool
      */
-    public function addHoliday(Holiday $holiday)
+    private function addHoliday(Holiday $holiday)
     {
         array_push($this->collection, $holiday);
         return $this;

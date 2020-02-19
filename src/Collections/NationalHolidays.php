@@ -2,9 +2,9 @@
 
 namespace Holidays\Collections;
 
-use Holidays\Contract\Collection as HolidayCollection;
+use Holidays\Contract\Holiday;
 
-class NationalHolidays extends AllHolidays implements HolidayCollection
+class NationalHolidays extends AllHolidays
 {
     public function __construct()
     {
@@ -14,8 +14,8 @@ class NationalHolidays extends AllHolidays implements HolidayCollection
 
     private function make()
     {
-        $holidays = array_filter($this->getCollection(), function ($object) {
-            return $object->isNational();
+        $holidays = array_filter($this->getCollection(), function (Holiday $holiday) {
+            return $holiday->isNational();
         });
 
         $this->collection = array_values($holidays);

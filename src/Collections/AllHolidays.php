@@ -3,9 +3,8 @@
 namespace Holidays\Collections;
 
 use Holidays\Contract\Holiday;
-use Holidays\Contract\Collection as HolidayCollection;
 
-class AllHolidays implements HolidayCollection
+class AllHolidays
 {
     protected $collection = [];
     protected $sortField;

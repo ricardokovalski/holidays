@@ -16,18 +16,21 @@ class AllHolidays
 
     private function make()
     {
-        $this->addHoliday(new \Holidays\Types\Carnival())
-            ->addHoliday(new \Holidays\Types\Christmas())
+        $this->addHoliday(new \Holidays\Types\AllSoulsDay())
+            ->addHoliday(new \Holidays\Types\Carnival())
+            ->addHoliday(new \Holidays\Types\ChildrenDay())
+            ->addHoliday(new \Holidays\Types\ChristmasDay())
             ->addHoliday(new \Holidays\Types\CorpusChrist())
-            ->addHoliday(new \Holidays\Types\Dead())
-            ->addHoliday(new \Holidays\Types\Easter())
+            ->addHoliday(new \Holidays\Types\EasterSunday())
+            ->addHoliday(new \Holidays\Types\FatherDay())
+            ->addHoliday(new \Holidays\Types\GoodFriday())
             ->addHoliday(new \Holidays\Types\IndependenceBrazil())
             ->addHoliday(new \Holidays\Types\LaborDay())
-            ->addHoliday(new \Holidays\Types\NewYear())
-            ->addHoliday(new \Holidays\Types\OurLadyAparecida())
-            ->addHoliday(new \Holidays\Types\PassionChrist())
-            ->addHoliday(new \Holidays\Types\ProclamationRepublic())
-            ->addHoliday(new \Holidays\Types\Tiradentes());
+            ->addHoliday(new \Holidays\Types\MotherDay())
+            ->addHoliday(new \Holidays\Types\NewYearsDay())
+            ->addHoliday(new \Holidays\Types\OurLadyOfAparecida())
+            ->addHoliday(new \Holidays\Types\RepublicProclamationDay())
+            ->addHoliday(new \Holidays\Types\TiradentesDay());
     }
 
     /**

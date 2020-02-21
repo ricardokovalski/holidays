@@ -4,7 +4,7 @@ namespace Holidays\Types;
 
 use Holidays\AbstractHoliday;
 
-class NewYear extends AbstractHoliday
+class NewYearsDay extends AbstractHoliday
 {
     protected function name()
     {

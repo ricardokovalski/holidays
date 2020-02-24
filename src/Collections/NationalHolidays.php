@@ -15,7 +15,7 @@ class NationalHolidays extends AllHolidays
     private function make()
     {
         $holidays = array_filter($this->getCollection(), function (Holiday $holiday) {
-            return $holiday->isNational();
+            return $holiday->getType() == \Holidays\Domain\TypeHoliday::NATIONAL_HOLIDAY;
         });
 
         $this->collection = array_values($holidays);

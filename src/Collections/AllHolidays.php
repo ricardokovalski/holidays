@@ -4,7 +4,7 @@ namespace Holidays\Collections;
 
 use Holidays\Contract\Holiday;
 
-class AllHolidays
+abstract class AllHolidays
 {
     protected $collection = [];
     protected $sortField;

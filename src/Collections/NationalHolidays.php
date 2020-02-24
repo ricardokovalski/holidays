@@ -3,8 +3,9 @@
 namespace Holidays\Collections;
 
 use Holidays\Contract\Holiday;
+use Holidays\Domain\TypeHoliday;
 
-class NationalHolidays extends AllHolidays
+class NationalHolidays extends AbstractCollection
 {
     public function __construct()
     {
@@ -15,7 +16,7 @@ class NationalHolidays extends AllHolidays
     private function make()
     {
         $holidays = array_filter($this->getCollection(), function (Holiday $holiday) {
-            return $holiday->getType() == \Holidays\Domain\TypeHoliday::NATIONAL_HOLIDAY;
+            return $holiday->getType() == TypeHoliday::NATIONAL_HOLIDAY;
         });
 
         $this->collection = array_values($holidays);

@@ -2,8 +2,6 @@
 
 namespace Holidays\Types;
 
-use Holidays\AbstractHoliday;
-
 class ChildrenDay extends AbstractHoliday
 {
     protected function name()
@@ -21,8 +19,13 @@ class ChildrenDay extends AbstractHoliday
         return true;
     }
 
+    protected function type()
+    {
+        return \Holidays\Domain\TypeHoliday::NATIONAL_HOLIDAY;
+    }
+
     public function timestamp()
     {
-        return strtotime($this->getYear() . "-10-12");
+        return strtotime("12 October {$this->getYear()}");
     }
 }

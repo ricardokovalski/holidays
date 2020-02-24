@@ -2,8 +2,6 @@
 
 namespace Holidays\Types;
 
-use Holidays\AbstractHoliday;
-
 class EasterSunday extends AbstractHoliday
 {
     protected function name()
@@ -19,6 +17,11 @@ class EasterSunday extends AbstractHoliday
     protected function national()
     {
         return true;
+    }
+
+    protected function type()
+    {
+        return \Holidays\Domain\TypeHoliday::NATIONAL_HOLIDAY;
     }
 
     public function timestamp()

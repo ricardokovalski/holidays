@@ -1,6 +1,6 @@
 <?php
 
-namespace Holidays;
+namespace Holidays\Types;
 
 use Holidays\Contract\Holiday;
 
@@ -12,16 +12,20 @@ abstract class AbstractHoliday implements Holiday
 
     protected $isNational;
 
+    protected $type;
+
     public function __construct()
     {
         $this->makeName();
         $this->makeDate();
         $this->makeNational();
+        $this->makeType();
     }
 
     abstract protected function name();
     abstract protected function date();
     abstract protected function national();
+    abstract protected function type();
 
     protected function makeName()
     {
@@ -36,6 +40,11 @@ abstract class AbstractHoliday implements Holiday
     protected function makeNational()
     {
         return $this->isNational = $this->national();
+    }
+
+    protected function makeType()
+    {
+        return $this->type = $this->type();
     }
 
     public function formatter()
@@ -56,6 +65,11 @@ abstract class AbstractHoliday implements Holiday
     public function isNational()
     {
         return $this->isNational;
+    }
+
+    public function getType()
+    {
+        return $this->type;
     }
 
     public function getYear()

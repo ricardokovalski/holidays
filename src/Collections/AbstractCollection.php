@@ -4,11 +4,25 @@ namespace Holidays\Collections;
 
 use Holidays\Contract\Holiday;
 
+/**
+ * Class AbstractCollection
+ * @package Holidays\Collections
+ */
 abstract class AbstractCollection
 {
+    /**
+     * @var array
+     */
     protected $collection = [];
+
+    /**
+     * @var
+     */
     protected $sortField;
 
+    /**
+     * AbstractCollection constructor.
+     */
     public function __construct()
     {
         $this->make();

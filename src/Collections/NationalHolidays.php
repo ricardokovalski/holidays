@@ -5,8 +5,15 @@ namespace Holidays\Collections;
 use Holidays\Contract\Holiday;
 use Holidays\Domain\TypeHoliday;
 
+/**
+ * Class NationalHolidays
+ * @package Holidays\Collections
+ */
 class NationalHolidays extends AbstractCollection
 {
+    /**
+     * NationalHolidays constructor.
+     */
     public function __construct()
     {
         parent::__construct();

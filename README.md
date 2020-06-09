@@ -3,6 +3,12 @@
 [![Author](http://img.shields.io/badge/author-@ricardokovalski-blue.svg?style=flat-square)](https://github.com/ricardokovalski)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](https://github.com/thephpleague/glide-symfony/blob/master/LICENSE)
 
+## Instalação
+
+```
+composer require ricardokovalski/holidays
+```
+
 ## Uso básico
 
 Para obter uma coleção com todos os feriados (nacionais e não nacionais) e outras datas, basta você seguir a demonstração abaixo.

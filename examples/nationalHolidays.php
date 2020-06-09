@@ -5,10 +5,9 @@ ini_set('display_startup_errors', 1);
 
 require __DIR__ . '../vendor/autoload.php';
 
-use Holidays\Collections\AllHolidays;
+use Holidays\Collections\NationalHolidays;
 
-$collection = new AllHolidays();
+$collection = new NationalHolidays();
 $collection->orderByDate()
     ->ascending()
     ->getCollection();
-

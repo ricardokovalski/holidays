@@ -110,4 +110,20 @@ abstract class AbstractCollection
     {
         return $this->collection;
     }
+
+    /**
+     * @return mixed
+     */
+    public function first()
+    {
+        return current($this->collection);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function last()
+    {
+        return end($this->collection);
+    }
 }

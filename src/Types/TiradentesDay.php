@@ -9,19 +9,20 @@ namespace Holidays\Types;
 class TiradentesDay extends AbstractHoliday
 {
     /**
+     * AllSoulsDay constructor.
+     * @param null $year
+     */
+    public function __construct($year = null)
+    {
+        parent::__construct($year);
+    }
+
+    /**
      * @return mixed|string
      */
     protected function name()
     {
         return "Tiradentes";
-    }
-
-    /**
-     * @return false|mixed|string
-     */
-    protected function date()
-    {
-        return date($this->formatter(), $this->timestamp());
     }
 
     /**
@@ -41,10 +42,16 @@ class TiradentesDay extends AbstractHoliday
     }
 
     /**
+     * @param $year
      * @return false|int
      */
-    public function timestamp()
+    protected function timestamp($year)
     {
-        return strtotime("21 April {$this->getYear()}");
+        if ($year) {
+            return strtotime("21 April {$year}");
+        }
+
+        $year = date('Y');
+        return strtotime("21 April {$year}");
     }
 }

@@ -6,22 +6,23 @@ namespace Holidays\Types;
  * Class EasterSunday
  * @package Holidays\Types
  */
-class EasterSunday extends AbstractHoliday
+class EasterSunday extends AbstractEaster
 {
+    /**
+     * AllSoulsDay constructor.
+     * @param null $year
+     */
+    public function __construct($year = null)
+    {
+        parent::__construct($year);
+    }
+
     /**
      * @return mixed|string
      */
     protected function name()
     {
         return "Páscoa";
-    }
-
-    /**
-     * @return false|mixed|string
-     */
-    protected function date()
-    {
-        return date($this->formatter(), $this->timestamp());
     }
 
     /**
@@ -41,10 +42,11 @@ class EasterSunday extends AbstractHoliday
     }
 
     /**
+     * @param $year
      * @return int
      */
-    public function timestamp()
+    protected function timestamp($year)
     {
-        return $this->getDateEaster();
+        return $this->getDateEaster($year);
     }
 }

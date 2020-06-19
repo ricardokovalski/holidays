@@ -9,19 +9,20 @@ namespace Holidays\Types;
 class ChristmasDay extends AbstractHoliday
 {
     /**
+     * AllSoulsDay constructor.
+     * @param null $year
+     */
+    public function __construct($year = null)
+    {
+        parent::__construct($year);
+    }
+
+    /**
      * @return mixed|string
      */
     protected function name()
     {
         return "Natal";
-    }
-
-    /**
-     * @return false|mixed|string
-     */
-    protected function date()
-    {
-        return date($this->formatter(), $this->timestamp());
     }
 
     /**
@@ -40,11 +41,14 @@ class ChristmasDay extends AbstractHoliday
         return \Holidays\Domain\TypeHoliday::NATIONAL_HOLIDAY;
     }
 
+
     /**
+     * @param $year
      * @return false|int
      */
-    public function timestamp()
+    protected function timestamp($year)
     {
-        return strtotime("25 December {$this->getYear()}");
+        $year = $year ?: date('Y');
+        return strtotime("25 December {$year}");
     }
 }

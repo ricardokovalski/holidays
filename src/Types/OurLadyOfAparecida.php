@@ -9,19 +9,20 @@ namespace Holidays\Types;
 class OurLadyOfAparecida extends AbstractHoliday
 {
     /**
+     * AllSoulsDay constructor.
+     * @param null $year
+     */
+    public function __construct($year = null)
+    {
+        parent::__construct($year);
+    }
+
+    /**
      * @return mixed|string
      */
     protected function name()
     {
         return "Nossa Senhora Aparecida";
-    }
-
-    /**
-     * @return false|mixed|string
-     */
-    protected function date()
-    {
-        return date($this->formatter(), $this->timestamp());
     }
 
     /**
@@ -41,10 +42,12 @@ class OurLadyOfAparecida extends AbstractHoliday
     }
 
     /**
-     * @return false|int
+     * @param $year
+     * @return false|int|mixed
      */
-    public function timestamp()
+    protected function timestamp($year)
     {
-        return strtotime("12 October {$this->getYear()}");
+        $year = $year ?: date('Y');
+        return strtotime("12 October {$year}");
     }
 }

@@ -10,15 +10,12 @@ use Holidays\Contract\Holiday;
  */
 abstract class AbstractHoliday implements Holiday
 {
+    const FORMAT = 'Y-m-d';
+
     /**
      * @var $name
      */
     protected $name;
-
-    /**
-     * @var $date
-     */
-    protected $date;
 
     /**
      * @var $isNational
@@ -31,25 +28,26 @@ abstract class AbstractHoliday implements Holiday
     protected $type;
 
     /**
-     * AbstractHoliday constructor.
+     * @var $timestamp
      */
-    public function __construct()
+    protected $timestamp;
+
+    /**
+     * AbstractHoliday constructor.
+     * @param $year
+     */
+    public function __construct($year = null)
     {
         $this->makeName();
-        $this->makeDate();
         $this->makeNational();
         $this->makeType();
+        $this->makeTimestamp($year);
     }
 
     /**
      * @return mixed
      */
     abstract protected function name();
-
-    /**
-     * @return mixed
-     */
-    abstract protected function date();
 
     /**
      * @return mixed
@@ -62,19 +60,17 @@ abstract class AbstractHoliday implements Holiday
     abstract protected function type();
 
     /**
+     * @param $year
+     * @return mixed
+     */
+    abstract protected function timestamp($year);
+
+    /**
      * @return mixed
      */
     protected function makeName()
     {
         return $this->name = $this->name();
-    }
-
-    /**
-     * @return mixed
-     */
-    protected function makeDate()
-    {
-        return $this->date = $this->date();
     }
 
     /**
@@ -94,11 +90,21 @@ abstract class AbstractHoliday implements Holiday
     }
 
     /**
+     * @param $year
+     * @return mixed
+     */
+    protected function makeTimestamp($year)
+    {
+        return $this->timestamp = $this->timestamp($year);
+    }
+
+    /**
+     * @param $format
      * @return mixed|string
      */
-    public function formatter()
+    public function formatter($format = self::FORMAT)
     {
-        return "Y-m-d";
+        return date($format, $this->timestamp);
     }
 
     /**
@@ -107,14 +113,6 @@ abstract class AbstractHoliday implements Holiday
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDate()
-    {
-        return $this->date;
     }
 
     /**
@@ -134,26 +132,10 @@ abstract class AbstractHoliday implements Holiday
     }
 
     /**
-     * @return false|string
+     * @return mixed
      */
-    public function getYear()
+    public function getTimestamp()
     {
-        return date("Y");
-    }
-
-    /**
-     * @return float|int
-     */
-    protected function getNumberSecondsFromOneDay()
-    {
-        return 60*60*24;
-    }
-
-    /**
-     * @return int
-     */
-    protected function getDateEaster()
-    {
-        return easter_date();
+        return $this->timestamp;
     }
 }

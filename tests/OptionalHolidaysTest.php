@@ -107,67 +107,67 @@ class OptionalHolidaysTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testAssertEqualsCollectionOrderByDateAscending()
+    public function testAssertEqualsCollectionOrderByTimestampAscending()
     {
         $this->assertEquals(
-            $this->expectedCollectionOrderByDateAscending(),
+            $this->expectedCollectionOrderByTimestampAscending(),
             $this->collection
-                ->orderByDate()
+                ->orderByTimestamp()
                 ->ascending()
                 ->getCollection()
         );
     }
 
-    public function testAssertInstanceOfFirstElementCollectionOrderByDateAscending()
+    public function testAssertInstanceOfFirstElementCollectionOrderByTimestampAscending()
     {
         $this->assertInstanceOf(
             \Holidays\Types\Carnival::class,
             $this->collection
-                ->orderByDate()
+                ->orderByTimestamp()
                 ->ascending()
                 ->first()
         );
     }
 
-    public function testAssertInstanceOfLastElementCollectionOrderByDateAscending()
+    public function testAssertInstanceOfLastElementCollectionOrderByTimestampAscending()
     {
         $this->assertInstanceOf(
             \Holidays\Types\FatherDay::class,
             $this->collection
-                ->orderByDate()
+                ->orderByTimestamp()
                 ->ascending()
                 ->last()
         );
     }
 
-    public function testAssertEqualsCollectionOrderByDateDescending()
+    public function testAssertEqualsCollectionOrderByTimestampDescending()
     {
         $this->assertEquals(
-            $this->expectedCollectionOrderByDateDescending(),
+            $this->expectedCollectionOrderByTimestampDescending(),
             $this->collection
-                ->orderByDate()
+                ->orderByTimestamp()
                 ->descending()
                 ->getCollection()
         );
     }
 
-    public function testAssertInstanceOfFirstElementCollectionOrderByDateDescending()
+    public function testAssertInstanceOfFirstElementCollectionOrderByTimestampDescending()
     {
         $this->assertInstanceOf(
             \Holidays\Types\FatherDay::class,
             $this->collection
-                ->orderByDate()
+                ->orderByTimestamp()
                 ->descending()
                 ->first()
         );
     }
 
-    public function testAssertInstanceOfLastElementCollectionOrderByDateDescending()
+    public function testAssertInstanceOfLastElementCollectionOrderByTimestampDescending()
     {
         $this->assertInstanceOf(
             \Holidays\Types\Carnival::class,
             $this->collection
-                ->orderByDate()
+                ->orderByTimestamp()
                 ->descending()
                 ->last()
         );
@@ -176,10 +176,10 @@ class OptionalHolidaysTest extends \PHPUnit_Framework_TestCase
     private function expectedCollectionDefault()
     {
         return [
-            new \Holidays\Types\Carnival,
-            new \Holidays\Types\CorpusChrist,
-            new \Holidays\Types\FatherDay,
-            new \Holidays\Types\MotherDay,
+            new \Holidays\Types\Carnival(),
+            new \Holidays\Types\CorpusChrist(),
+            new \Holidays\Types\FatherDay(),
+            new \Holidays\Types\MotherDay(),
         ];
     }
 
@@ -199,20 +199,25 @@ class OptionalHolidaysTest extends \PHPUnit_Framework_TestCase
         return array_reverse($this->expectedCollectionOrderByNameAscending());
     }
 
-    private function expectedCollectionOrderByDateAscending()
+    private function expectedCollectionOrderByTimestampAscending()
     {
         $collection = $this->expectedCollectionDefault();
 
         usort($collection, function(\Holidays\Contract\Holiday $a, \Holidays\Contract\Holiday $b) {
-            return $a->getDate() > $b->getDate();
+            return $a->getTimestamp() > $b->getTimestamp();
         });
 
         return $collection;
     }
 
-    private function expectedCollectionOrderByDateDescending()
+    private function expectedCollectionOrderByTimestampDescending()
     {
-        return array_reverse($this->expectedCollectionOrderByDateAscending());
-    }
+        $collection = $this->expectedCollectionDefault();
 
+        usort($collection, function(\Holidays\Contract\Holiday $a, \Holidays\Contract\Holiday $b) {
+            return $a->getTimestamp() < $b->getTimestamp();
+        });
+
+        return $collection;
+    }
 }

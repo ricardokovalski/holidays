@@ -6,22 +6,23 @@ namespace Holidays\Types;
  * Class CorpusChrist
  * @package Holidays\Types
  */
-class CorpusChrist extends AbstractHoliday
+class CorpusChrist extends AbstractEaster
 {
+    /**
+     * AllSoulsDay constructor.
+     * @param null $year
+     */
+    public function __construct($year = null)
+    {
+        parent::__construct($year);
+    }
+
     /**
      * @return mixed|string
      */
     protected function name()
     {
         return "CorpusChrist";
-    }
-
-    /**
-     * @return false|mixed|string
-     */
-    protected function date()
-    {
-        return date($this->formatter(), $this->timestamp());
     }
 
     /**
@@ -41,10 +42,11 @@ class CorpusChrist extends AbstractHoliday
     }
 
     /**
+     * @param $year
      * @return float|int
      */
-    public function timestamp()
+    protected function timestamp($year)
     {
-        return $this->getDateEaster() + (60 * $this->getNumberSecondsFromOneDay());
+        return $this->getDateEaster($year) + (60 * $this->getNumberSecondsFromOneDay());
     }
 }

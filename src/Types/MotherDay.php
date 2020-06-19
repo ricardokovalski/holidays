@@ -9,19 +9,20 @@ namespace Holidays\Types;
 class MotherDay extends AbstractHoliday
 {
     /**
+     * AllSoulsDay constructor.
+     * @param null $year
+     */
+    public function __construct($year = null)
+    {
+        parent::__construct($year);
+    }
+
+    /**
      * @return mixed|string
      */
     protected function name()
     {
         return "Dia das Mães";
-    }
-
-    /**
-     * @return false|mixed|string
-     */
-    protected function date()
-    {
-        return date($this->formatter(), $this->timestamp());
     }
 
     /**
@@ -41,10 +42,12 @@ class MotherDay extends AbstractHoliday
     }
 
     /**
+     * @param $year
      * @return false|int
      */
-    public function timestamp()
+    protected function timestamp($year)
     {
-        return strtotime("second Sunday of May {$this->getYear()}");
+        $year = $year ?: date('Y');
+        return strtotime("second Sunday of May {$year}");
     }
 }

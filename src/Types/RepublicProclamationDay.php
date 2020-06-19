@@ -9,19 +9,20 @@ namespace Holidays\Types;
 class RepublicProclamationDay extends AbstractHoliday
 {
     /**
+     * AllSoulsDay constructor.
+     * @param null $year
+     */
+    public function __construct($year = null)
+    {
+        parent::__construct($year);
+    }
+
+    /**
      * @return mixed|string
      */
     protected function name()
     {
         return "Proclamação da República";
-    }
-
-    /**
-     * @return false|mixed|string
-     */
-    protected function date()
-    {
-        return date($this->formatter(), $this->timestamp());
     }
 
     /**
@@ -41,10 +42,12 @@ class RepublicProclamationDay extends AbstractHoliday
     }
 
     /**
+     * @param $year
      * @return false|int
      */
-    public function timestamp()
+    protected function timestamp($year)
     {
-        return strtotime("15 November {$this->getYear()}");
+        $year = $year ?: date('Y');
+        return strtotime("15 November {$year}");
     }
 }

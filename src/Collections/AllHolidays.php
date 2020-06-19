@@ -8,11 +8,12 @@ namespace Holidays\Collections;
  */
 class AllHolidays extends AbstractCollection
 {
-    /**
+    /**]
      * AllHolidays constructor.
+     * @param $year
      */
-    public function __construct()
+    public function __construct($year = null)
     {
-        parent::__construct();
+        parent::__construct($year);
     }
 }

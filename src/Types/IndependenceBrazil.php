@@ -9,19 +9,20 @@ namespace Holidays\Types;
 class IndependenceBrazil extends AbstractHoliday
 {
     /**
+     * AllSoulsDay constructor.
+     * @param null $year
+     */
+    public function __construct($year = null)
+    {
+        parent::__construct($year);
+    }
+
+    /**
      * @return mixed|string
      */
     protected function name()
     {
         return "Independência do Brasil";
-    }
-
-    /**
-     * @return false|mixed|string
-     */
-    protected function date()
-    {
-        return date($this->formatter(), $this->timestamp());
     }
 
     /**
@@ -41,10 +42,12 @@ class IndependenceBrazil extends AbstractHoliday
     }
 
     /**
+     * @param $year
      * @return false|int
      */
-    public function timestamp()
+    protected function timestamp($year)
     {
-        return strtotime("07 September {$this->getYear()}");
+        $year = $year ?: date('Y');
+        return strtotime("07 September {$year}");
     }
 }

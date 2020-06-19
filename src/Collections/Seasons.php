@@ -13,10 +13,11 @@ class Seasons extends AbstractCollection
 {
     /**
      * Seasons constructor.
+     * @param null $year
      */
-    public function __construct()
+    public function __construct($year = null)
     {
-        parent::__construct();
+        parent::__construct($year);
         $this->make();
     }
 

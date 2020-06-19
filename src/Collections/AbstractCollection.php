@@ -15,40 +15,41 @@ abstract class AbstractCollection
      */
     protected $collection = [];
 
-    /**
-     * @var
-     */
     protected $sortField;
+
+    private $year;
 
     /**
      * AbstractCollection constructor.
+     * @param $year
      */
-    public function __construct()
+    public function __construct($year)
     {
-        $this->make();
+        $this->year = $year;
+        $this->makeCollection();
     }
 
-    private function make()
+    private function makeCollection()
     {
-        $this->addHoliday(new \Holidays\Types\AllSoulsDay())
-            ->addHoliday(new \Holidays\Types\Carnival())
-            ->addHoliday(new \Holidays\Types\ChildrenDay())
-            ->addHoliday(new \Holidays\Types\ChristmasDay())
-            ->addHoliday(new \Holidays\Types\CorpusChrist())
-            ->addHoliday(new \Holidays\Types\DecemberSolstice())
-            ->addHoliday(new \Holidays\Types\EasterSunday())
-            ->addHoliday(new \Holidays\Types\FatherDay())
-            ->addHoliday(new \Holidays\Types\GoodFriday())
-            ->addHoliday(new \Holidays\Types\IndependenceBrazil())
-            ->addHoliday(new \Holidays\Types\JuneSolstice())
-            ->addHoliday(new \Holidays\Types\LaborDay())
-            ->addHoliday(new \Holidays\Types\MarchEquinox())
-            ->addHoliday(new \Holidays\Types\MotherDay())
-            ->addHoliday(new \Holidays\Types\NewYearsDay())
-            ->addHoliday(new \Holidays\Types\OurLadyOfAparecida())
-            ->addHoliday(new \Holidays\Types\RepublicProclamationDay())
-            ->addHoliday(new \Holidays\Types\SeptemberEquinox())
-            ->addHoliday(new \Holidays\Types\TiradentesDay());
+        $this->addHoliday(new \Holidays\Types\AllSoulsDay($this->year))
+            ->addHoliday(new \Holidays\Types\Carnival($this->year))
+            ->addHoliday(new \Holidays\Types\ChildrenDay($this->year))
+            ->addHoliday(new \Holidays\Types\ChristmasDay($this->year))
+            ->addHoliday(new \Holidays\Types\CorpusChrist($this->year))
+            ->addHoliday(new \Holidays\Types\DecemberSolstice($this->year))
+            ->addHoliday(new \Holidays\Types\EasterSunday($this->year))
+            ->addHoliday(new \Holidays\Types\FatherDay($this->year))
+            ->addHoliday(new \Holidays\Types\GoodFriday($this->year))
+            ->addHoliday(new \Holidays\Types\IndependenceBrazil($this->year))
+            ->addHoliday(new \Holidays\Types\JuneSolstice($this->year))
+            ->addHoliday(new \Holidays\Types\LaborDay($this->year))
+            ->addHoliday(new \Holidays\Types\MarchEquinox($this->year))
+            ->addHoliday(new \Holidays\Types\MotherDay($this->year))
+            ->addHoliday(new \Holidays\Types\NewYearsDay($this->year))
+            ->addHoliday(new \Holidays\Types\OurLadyOfAparecida($this->year))
+            ->addHoliday(new \Holidays\Types\RepublicProclamationDay($this->year))
+            ->addHoliday(new \Holidays\Types\SeptemberEquinox($this->year))
+            ->addHoliday(new \Holidays\Types\TiradentesDay($this->year));
     }
 
     /**
@@ -73,9 +74,9 @@ abstract class AbstractCollection
     /**
      * @return $this
      */
-    public function orderByDate()
+    public function orderByTimestamp()
     {
-        $this->sortField = 'getDate';
+        $this->sortField = 'getTimestamp';
         return $this;
     }
 
@@ -125,5 +126,13 @@ abstract class AbstractCollection
     public function last()
     {
         return end($this->collection);
+    }
+
+    /**
+     * @return int
+     */
+    public function length()
+    {
+        return count($this->collection);
     }
 }

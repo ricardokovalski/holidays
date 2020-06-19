@@ -9,19 +9,15 @@ namespace Holidays\Contract;
 interface Holiday
 {
     /**
+     * @param $format
      * @return mixed
      */
-    public function formatter();
+    public function formatter($format);
 
     /**
      * @return mixed
      */
     public function getName();
-
-    /**
-     * @return mixed
-     */
-    public function getDate();
 
     /**
      * @return mixed
@@ -32,4 +28,9 @@ interface Holiday
      * @return mixed
      */
     public function getType();
+
+    /**
+     * @return mixed
+     */
+    public function getTimestamp();
 }

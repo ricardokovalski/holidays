@@ -3,6 +3,7 @@
 namespace Holidays\Collections;
 
 use Holidays\Contract\Holiday;
+use InvalidArgumentException;
 
 /**
  * Class AbstractCollection
@@ -59,6 +60,25 @@ abstract class AbstractCollection
     private function addHoliday(Holiday $holiday)
     {
         array_push($this->collection, $holiday);
+        return $this;
+    }
+
+    /**
+     * @param \DateTimeInterface $startDate
+     * @param \DateTimeInterface $endDate
+     * @return $this
+     */
+    public function between(\DateTimeInterface $startDate, \DateTimeInterface $endDate)
+    {
+        if ($startDate > $endDate) {
+            throw new InvalidArgumentException('Start date must be a date before the end date.');
+        }
+
+        $this->collection = array_filter($this->collection, function (Holiday $holiday) use ($startDate, $endDate) {
+            return $holiday->formatter('Y-m-d') <= $endDate->format('Y-m-d') &&
+                 $holiday->formatter('Y-m-d') >= $startDate->format('Y-m-d');
+        });
+
         return $this;
     }
 

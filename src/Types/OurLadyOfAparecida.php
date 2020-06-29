@@ -9,7 +9,7 @@ namespace Holidays\Types;
 class OurLadyOfAparecida extends AbstractHoliday
 {
     /**
-     * AllSoulsDay constructor.
+     * OurLadyOfAparecida constructor.
      * @param null $year
      */
     public function __construct($year = null)

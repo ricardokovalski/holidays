@@ -9,7 +9,7 @@ namespace Holidays\Types;
 class TiradentesDay extends AbstractHoliday
 {
     /**
-     * AllSoulsDay constructor.
+     * TiradentesDay constructor.
      * @param null $year
      */
     public function __construct($year = null)

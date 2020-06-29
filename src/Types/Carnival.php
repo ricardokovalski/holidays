@@ -9,7 +9,7 @@ namespace Holidays\Types;
 class Carnival extends AbstractEaster
 {
     /**
-     * AllSoulsDay constructor.
+     * Carnival constructor.
      * @param null $year
      */
     public function __construct($year = null)
@@ -48,5 +48,25 @@ class Carnival extends AbstractEaster
     protected function timestamp($year)
     {
         return $this->getDateEaster($year) - (47 * $this->getNumberSecondsFromOneDay());
+    }
+
+    /**
+     * @param string $format
+     * @return false|int|mixed|string
+     */
+    public function next($format = AbstractHoliday::FORMAT)
+    {
+        $year = $this->getYear() ?: date('Y');
+        return date($format, $this->getDateEaster($year + 1) - (47 * $this->getNumberSecondsFromOneDay()));
+    }
+
+    /**
+     * @param string $format
+     * @return false|int|mixed|string
+     */
+    public function previous($format = AbstractHoliday::FORMAT)
+    {
+        $year = $this->getYear() ?: date('Y');
+        return date($format, $this->getDateEaster($year - 1) - (47 * $this->getNumberSecondsFromOneDay()));
     }
 }

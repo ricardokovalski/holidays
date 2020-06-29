@@ -9,7 +9,7 @@ namespace Holidays\Types;
 class SeptemberEquinox extends AbstractHoliday
 {
     /**
-     * AllSoulsDay constructor.
+     * SeptemberEquinox constructor.
      * @param null $year
      */
     public function __construct($year = null)

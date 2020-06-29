@@ -9,7 +9,7 @@ namespace Holidays\Types;
 class EasterSunday extends AbstractEaster
 {
     /**
-     * AllSoulsDay constructor.
+     * EasterSunday constructor.
      * @param null $year
      */
     public function __construct($year = null)
@@ -48,5 +48,25 @@ class EasterSunday extends AbstractEaster
     protected function timestamp($year)
     {
         return $this->getDateEaster($year);
+    }
+
+    /**
+     * @param string $format
+     * @return false|int|mixed|string
+     */
+    public function next($format = AbstractHoliday::FORMAT)
+    {
+        $year = $this->getYear() ?: date('Y');
+        return date($format, $this->getDateEaster($year + 1));
+    }
+
+    /**
+     * @param $format
+     * @return mixed
+     */
+    public function previous($format = AbstractHoliday::FORMAT)
+    {
+        $year = $this->getYear() ?: date('Y');
+        return date($format, $this->getDateEaster($year - 1));
     }
 }

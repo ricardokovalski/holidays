@@ -2,8 +2,6 @@
 
 namespace Holidays\Types;
 
-use Holidays\Contract\Holiday;
-
 /**
  * Class AbstractEaster
  * @package Holidays\Types

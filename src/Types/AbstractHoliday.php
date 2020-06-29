@@ -33,11 +33,17 @@ abstract class AbstractHoliday implements Holiday
     protected $timestamp;
 
     /**
+     * @var $year
+     */
+    private $year;
+
+    /**
      * AbstractHoliday constructor.
      * @param $year
      */
     public function __construct($year = null)
     {
+        $this->year = $year;
         $this->makeName();
         $this->makeNational();
         $this->makeType();
@@ -104,7 +110,25 @@ abstract class AbstractHoliday implements Holiday
      */
     public function formatter($format = self::FORMAT)
     {
-        return date($format, $this->timestamp);
+        return date($format, $this->getTimestamp());
+    }
+
+    /**
+     * @param string $format
+     * @return false|int|mixed
+     */
+    public function next($format = self::FORMAT)
+    {
+        return date($format, strtotime('+ 1 Years', $this->getTimestamp()));
+    }
+
+    /**
+     * @param string $format
+     * @return false|int|mixed|string
+     */
+    public function previous($format = self::FORMAT)
+    {
+        return date($format, strtotime('- 1 Years', $this->getTimestamp()));
     }
 
     /**
@@ -137,5 +161,13 @@ abstract class AbstractHoliday implements Holiday
     public function getTimestamp()
     {
         return $this->timestamp;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getYear()
+    {
+        return $this->year;
     }
 }

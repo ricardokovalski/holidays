@@ -15,6 +15,18 @@ interface Holiday
     public function formatter($format);
 
     /**
+     * @param $format
+     * @return mixed
+     */
+    public function next($format);
+
+    /**
+     * @param $format
+     * @return mixed
+     */
+    public function previous($format);
+
+    /**
      * @return mixed
      */
     public function getName();

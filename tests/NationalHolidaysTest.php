@@ -7,7 +7,7 @@ class NationalHolidaysTest extends \PHPUnit_Framework_TestCase
     private $collection;
 
     public function setUp() {
-        $this->collection = new NationalHolidays;
+        $this->collection = new NationalHolidays();
     }
 
     public function testCountCollection()

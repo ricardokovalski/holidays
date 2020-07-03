@@ -7,7 +7,7 @@ class AllHolidaysTest extends \PHPUnit_Framework_TestCase
     private $collection;
 
     public function setUp() {
-        $this->collection = new AllHolidays(2020);
+        $this->collection = new AllHolidays();
     }
 
     public function testAssertEqualsAllHolidaysCollection()

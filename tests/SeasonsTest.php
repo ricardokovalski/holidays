@@ -7,7 +7,7 @@ class SeasonsTest extends \PHPUnit_Framework_TestCase
     private $collection;
 
     public function setUp() {
-        $this->collection = new Seasons;
+        $this->collection = new Seasons();
     }
 
     public function testAssertEqualsSeasonsCollection()
@@ -176,10 +176,10 @@ class SeasonsTest extends \PHPUnit_Framework_TestCase
     private function expectedCollectionDefault()
     {
         return [
-            new Holidays\Types\DecemberSolstice,
-            new Holidays\Types\JuneSolstice,
-            new Holidays\Types\MarchEquinox,
-            new Holidays\Types\SeptemberEquinox,
+            new Holidays\Types\DecemberSolstice(),
+            new Holidays\Types\JuneSolstice(),
+            new Holidays\Types\MarchEquinox(),
+            new Holidays\Types\SeptemberEquinox(),
         ];
     }
 

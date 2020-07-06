@@ -2,6 +2,7 @@
 
 namespace Holidays\Collections;
 
+use Holidays\Contract\Collection;
 use Holidays\Contract\Holiday;
 use InvalidArgumentException;
 
@@ -9,7 +10,7 @@ use InvalidArgumentException;
  * Class AbstractCollection
  * @package Holidays\Collections
  */
-abstract class AbstractCollection
+abstract class AbstractCollection implements Collection
 {
     /**
      * @var array
@@ -74,10 +75,81 @@ abstract class AbstractCollection
             throw new InvalidArgumentException('Start date must be a date before the end date.');
         }
 
-        $this->collection = array_filter($this->collection, function (Holiday $holiday) use ($startDate, $endDate) {
-            return $holiday->formatter('Y-m-d') <= $endDate->format('Y-m-d') &&
-                 $holiday->formatter('Y-m-d') >= $startDate->format('Y-m-d');
-        });
+        $this->collection = array_values(
+            array_filter($this->collection, function (Holiday $holiday) use ($startDate, $endDate) {
+                return $holiday->formatter('Y-m-d') >= $startDate->format('Y-m-d') &&
+                    $holiday->formatter('Y-m-d') <= $endDate->format('Y-m-d');
+            })
+        );
+
+        return $this;
+    }
+
+    /**
+     * @param \DateTimeInterface $startDate
+     * @param \DateTimeInterface $endDate
+     * @return $this
+     */
+    public function notBetween(\DateTimeInterface $startDate, \DateTimeInterface $endDate)
+    {
+        if ($startDate > $endDate) {
+            throw new InvalidArgumentException('Start date must be a date before the end date.');
+        }
+
+        $this->collection = array_values(
+            array_filter($this->collection, function (Holiday $holiday) use ($startDate, $endDate) {
+                return $holiday->formatter('Y-m-d') < $startDate->format('Y-m-d') ||
+                    $holiday->formatter('Y-m-d') > $endDate->format('Y-m-d');
+            })
+        );
+
+        return $this;
+    }
+
+    //maior que
+    public function greaterThan(\DateTimeInterface $date)
+    {
+        $this->collection = array_values(
+            array_filter($this->collection, function (Holiday $holiday) use ($date) {
+                return $holiday->formatter('Y-m-d') > $date->format('Y-m-d');
+            })
+        );
+
+        return $this;
+    }
+
+    //menor que
+    public function lessThan(\DateTimeInterface $date)
+    {
+        $this->collection = array_values(
+            array_filter($this->collection, function (Holiday $holiday) use ($date) {
+                return $holiday->formatter('Y-m-d') < $date->format('Y-m-d');
+            })
+        );
+
+        return $this;
+    }
+
+    //maior ou igual que
+    public function greaterThanEqual(\DateTimeInterface $date)
+    {
+        $this->collection = array_values(
+            array_filter($this->collection, function (Holiday $holiday) use ($date) {
+                return $holiday->formatter('Y-m-d') >= $date->format('Y-m-d');
+            })
+        );
+
+        return $this;
+    }
+
+    //menor ou igual que
+    public function lessThanEqual(\DateTimeInterface $date)
+    {
+        $this->collection = array_values(
+            array_filter($this->collection, function (Holiday $holiday) use ($date) {
+                return $holiday->formatter('Y-m-d') <= $date->format('Y-m-d');
+            })
+        );
 
         return $this;
     }
@@ -105,7 +177,7 @@ abstract class AbstractCollection
      */
     public function ascending()
     {
-        usort($this->collection, function($a, $b) {
+        usort($this->collection, function(Holiday $a, Holiday $b) {
             return $a->{$this->sortField}() > $b->{$this->sortField}();
         });
 
@@ -117,7 +189,7 @@ abstract class AbstractCollection
      */
     public function descending()
     {
-        usort($this->collection, function($a, $b) {
+        usort($this->collection, function(Holiday $a, Holiday $b) {
             return $a->{$this->sortField}() < $b->{$this->sortField}();
         });
 

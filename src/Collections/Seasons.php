@@ -18,15 +18,18 @@ class Seasons extends AbstractCollection
     public function __construct($year = null)
     {
         parent::__construct($year);
-        $this->make();
+        $this->applyFilter();
     }
 
-    private function make()
+    /**
+     * @return mixed
+     */
+    public function applyFilter()
     {
-        $holidays = array_filter($this->getCollection(), function (Holiday $holiday) {
-            return $holiday->getType() == TypeHoliday::SEASON;
-        });
-
-        $this->collection = array_values($holidays);
+        $this->collection = array_values(
+            array_filter($this->getCollection(), function (Holiday $holiday) {
+                return $holiday->getType() == TypeHoliday::SEASON;
+            })
+        );
     }
 }

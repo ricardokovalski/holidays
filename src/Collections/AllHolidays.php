@@ -15,5 +15,14 @@ class AllHolidays extends AbstractCollection
     public function __construct($year = null)
     {
         parent::__construct($year);
+        $this->applyFilter();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function applyFilter()
+    {
+        $this->collection = array_values($this->getCollection());
     }
 }

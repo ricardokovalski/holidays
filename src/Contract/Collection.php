@@ -8,5 +8,8 @@ namespace Holidays\Contract;
  */
 interface Collection
 {
-
+    /**
+     * @return mixed
+     */
+    public function applyFilter();
 }

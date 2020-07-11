@@ -4,6 +4,7 @@ namespace Holidays\Collections;
 
 use Holidays\Contract\Collection;
 use Holidays\Contract\Holiday;
+use Holidays\Domain\OrderBy;
 use InvalidArgumentException;
 
 /**
@@ -159,7 +160,7 @@ abstract class AbstractCollection implements Collection
      */
     public function orderByName()
     {
-        $this->sortField = 'getName';
+        $this->sortField = OrderBy::GET_NAME;
         return $this;
     }
 
@@ -168,7 +169,7 @@ abstract class AbstractCollection implements Collection
      */
     public function orderByTimestamp()
     {
-        $this->sortField = 'getTimestamp';
+        $this->sortField = OrderBy::GET_TIMESTAMP;
         return $this;
     }
 

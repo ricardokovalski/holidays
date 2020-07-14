@@ -3,10 +3,10 @@
 namespace Holidays\Domain;
 
 /**
- * Class OrderBy
+ * Class SortField
  * @package Holidays\Domain
  */
-class OrderBy extends EnumType
+class SortField extends EnumType
 {
     const GET_NAME = 'getName';
 

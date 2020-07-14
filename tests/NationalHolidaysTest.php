@@ -18,6 +18,21 @@ class NationalHolidaysTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testAssertEqualPluckByName()
+    {
+        $this->assertEquals(
+
+            array_map(function(\Holidays\Contract\Holiday $element) {
+                return $element->getName();
+            }, $this->expectedCollectionOrderByNameAscending()),
+
+            $this->collection
+                ->orderByName()
+                ->ascending()
+                ->pluckByName()
+        );
+    }
+
     public function testAssertEqualsCollectionOrderByNameAscending()
     {
         $this->assertEquals(

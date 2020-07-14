@@ -8,6 +8,6 @@ require __DIR__ . '../vendor/autoload.php';
 use Holidays\Collections\NationalHolidays;
 
 $collection = new NationalHolidays();
-$collection->orderByDate()
+$collection->orderByTimestamp()
     ->ascending()
     ->getCollection();

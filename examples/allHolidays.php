@@ -8,7 +8,7 @@ require __DIR__ . '../vendor/autoload.php';
 use Holidays\Collections\AllHolidays;
 
 $collection = new AllHolidays();
-$collection->orderByDate()
+$collection->orderByTimestamp()
     ->ascending()
     ->getCollection();
 

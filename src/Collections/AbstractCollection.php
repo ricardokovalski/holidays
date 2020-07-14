@@ -3,8 +3,13 @@
 namespace Holidays\Collections;
 
 use Holidays\Contract\Collection;
+use Holidays\Contract\Filter;
 use Holidays\Contract\Holiday;
-use Holidays\Domain\OrderBy;
+use Holidays\Domain\SortField;
+use Holidays\Filters\Between;
+use Holidays\Filters\GreaterThan;
+use Holidays\Filters\LessThan;
+use Holidays\Filters\NotBetween;
 use InvalidArgumentException;
 
 /**
@@ -14,12 +19,18 @@ use InvalidArgumentException;
 abstract class AbstractCollection implements Collection
 {
     /**
-     * @var array
+     * @var $collection array
      */
     protected $collection = [];
 
+    /**
+     * @var $sortField
+     */
     protected $sortField;
 
+    /**
+     * @var $year
+     */
     private $year;
 
     /**
@@ -76,12 +87,7 @@ abstract class AbstractCollection implements Collection
             throw new InvalidArgumentException('Start date must be a date before the end date.');
         }
 
-        $this->collection = array_values(
-            array_filter($this->collection, function (Holiday $holiday) use ($startDate, $endDate) {
-                return $holiday->formatter('Y-m-d') >= $startDate->format('Y-m-d') &&
-                    $holiday->formatter('Y-m-d') <= $endDate->format('Y-m-d');
-            })
-        );
+        $this->collection = (new Between($this->collection, [$startDate, $endDate]))->get();
 
         return $this;
     }
@@ -97,60 +103,51 @@ abstract class AbstractCollection implements Collection
             throw new InvalidArgumentException('Start date must be a date before the end date.');
         }
 
-        $this->collection = array_values(
-            array_filter($this->collection, function (Holiday $holiday) use ($startDate, $endDate) {
-                return $holiday->formatter('Y-m-d') < $startDate->format('Y-m-d') ||
-                    $holiday->formatter('Y-m-d') > $endDate->format('Y-m-d');
-            })
-        );
+        $this->collection = (new NotBetween($this->collection, [$startDate, $endDate]))->get();
 
         return $this;
     }
 
-    //maior que
+    /**
+     * @param \DateTimeInterface $date
+     * @return $this
+     */
     public function greaterThan(\DateTimeInterface $date)
     {
-        $this->collection = array_values(
-            array_filter($this->collection, function (Holiday $holiday) use ($date) {
-                return $holiday->formatter('Y-m-d') > $date->format('Y-m-d');
-            })
-        );
+        $this->collection = (new GreaterThan($this->collection, [$date]))->get();
 
         return $this;
     }
 
-    //menor que
+    /**
+     * @param \DateTimeInterface $date
+     * @return $this
+     */
     public function lessThan(\DateTimeInterface $date)
     {
-        $this->collection = array_values(
-            array_filter($this->collection, function (Holiday $holiday) use ($date) {
-                return $holiday->formatter('Y-m-d') < $date->format('Y-m-d');
-            })
-        );
+        $this->collection = (new LessThan($this->collection, [$date]))->get();
 
         return $this;
     }
 
-    //maior ou igual que
+    /**
+     * @param \DateTimeInterface $date
+     * @return $this
+     */
     public function greaterThanEqual(\DateTimeInterface $date)
     {
-        $this->collection = array_values(
-            array_filter($this->collection, function (Holiday $holiday) use ($date) {
-                return $holiday->formatter('Y-m-d') >= $date->format('Y-m-d');
-            })
-        );
+        $this->collection = (new GreaterThan($this->collection, [$date], true))->get();
 
         return $this;
     }
 
-    //menor ou igual que
+    /**
+     * @param \DateTimeInterface $date
+     * @return $this
+     */
     public function lessThanEqual(\DateTimeInterface $date)
     {
-        $this->collection = array_values(
-            array_filter($this->collection, function (Holiday $holiday) use ($date) {
-                return $holiday->formatter('Y-m-d') <= $date->format('Y-m-d');
-            })
-        );
+        $this->collection = (new LessThan($this->collection, [$date], true))->get();
 
         return $this;
     }
@@ -160,7 +157,7 @@ abstract class AbstractCollection implements Collection
      */
     public function orderByName()
     {
-        $this->sortField = OrderBy::GET_NAME;
+        $this->sortField = SortField::GET_NAME;
         return $this;
     }
 
@@ -169,7 +166,7 @@ abstract class AbstractCollection implements Collection
      */
     public function orderByTimestamp()
     {
-        $this->sortField = OrderBy::GET_TIMESTAMP;
+        $this->sortField = SortField::GET_TIMESTAMP;
         return $this;
     }
 
@@ -227,5 +224,25 @@ abstract class AbstractCollection implements Collection
     public function length()
     {
         return count($this->collection);
+    }
+
+    /**
+     * @return array
+     */
+    public function pluckByName()
+    {
+        return array_map(function(Holiday $element) {
+            return $element->getName();
+        }, $this->collection);
+    }
+
+    /**
+     * @return array
+     */
+    public function pluckByTimestamp()
+    {
+        return array_map(function(Holiday $element) {
+            return $element->getTimestamp();
+        }, $this->collection);
     }
 }

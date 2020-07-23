@@ -11,5 +11,5 @@ interface Filter
     /**
      * @return mixed
      */
-    public function execute();
+    public function filterRule();
 }

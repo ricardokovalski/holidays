@@ -3,14 +3,9 @@
 namespace Holidays\Collections;
 
 use Holidays\Contract\Collection;
-use Holidays\Contract\Filter;
 use Holidays\Contract\Holiday;
 use Holidays\Domain\SortField;
-use Holidays\Filters\Between;
-use Holidays\Filters\GreaterThan;
-use Holidays\Filters\LessThan;
-use Holidays\Filters\NotBetween;
-use InvalidArgumentException;
+use Holidays\Filters\FilterableTrait;
 
 /**
  * Class AbstractCollection
@@ -18,6 +13,8 @@ use InvalidArgumentException;
  */
 abstract class AbstractCollection implements Collection
 {
+    use FilterableTrait;
+
     /**
      * @var $collection array
      */
@@ -73,82 +70,6 @@ abstract class AbstractCollection implements Collection
     private function addHoliday(Holiday $holiday)
     {
         array_push($this->collection, $holiday);
-        return $this;
-    }
-
-    /**
-     * @param \DateTimeInterface $startDate
-     * @param \DateTimeInterface $endDate
-     * @return $this
-     */
-    public function between(\DateTimeInterface $startDate, \DateTimeInterface $endDate)
-    {
-        if ($startDate > $endDate) {
-            throw new InvalidArgumentException('Start date must be a date before the end date.');
-        }
-
-        $this->collection = (new Between($this->collection, [$startDate, $endDate]))->get();
-
-        return $this;
-    }
-
-    /**
-     * @param \DateTimeInterface $startDate
-     * @param \DateTimeInterface $endDate
-     * @return $this
-     */
-    public function notBetween(\DateTimeInterface $startDate, \DateTimeInterface $endDate)
-    {
-        if ($startDate > $endDate) {
-            throw new InvalidArgumentException('Start date must be a date before the end date.');
-        }
-
-        $this->collection = (new NotBetween($this->collection, [$startDate, $endDate]))->get();
-
-        return $this;
-    }
-
-    /**
-     * @param \DateTimeInterface $date
-     * @return $this
-     */
-    public function greaterThan(\DateTimeInterface $date)
-    {
-        $this->collection = (new GreaterThan($this->collection, [$date]))->get();
-
-        return $this;
-    }
-
-    /**
-     * @param \DateTimeInterface $date
-     * @return $this
-     */
-    public function lessThan(\DateTimeInterface $date)
-    {
-        $this->collection = (new LessThan($this->collection, [$date]))->get();
-
-        return $this;
-    }
-
-    /**
-     * @param \DateTimeInterface $date
-     * @return $this
-     */
-    public function greaterThanEqual(\DateTimeInterface $date)
-    {
-        $this->collection = (new GreaterThan($this->collection, [$date], true))->get();
-
-        return $this;
-    }
-
-    /**
-     * @param \DateTimeInterface $date
-     * @return $this
-     */
-    public function lessThanEqual(\DateTimeInterface $date)
-    {
-        $this->collection = (new LessThan($this->collection, [$date], true))->get();
-
         return $this;
     }
 

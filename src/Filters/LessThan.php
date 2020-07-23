@@ -9,7 +9,7 @@ use Holidays\Contract\Holiday;
  * Class LessThan
  * @package Holidays\Filters
  */
-class LessThan implements Filter
+class LessThan extends AbstractFilter implements Filter
 {
     /**
      * @var $collection array
@@ -17,9 +17,9 @@ class LessThan implements Filter
     private $collection = [];
 
     /**
-     * @var $dates array
+     * @var $filteredData array
      */
-    private $dates = [];
+    private $filteredData = [];
 
     /**
      * @var $equal bool
@@ -28,42 +28,48 @@ class LessThan implements Filter
 
     /**
      * LessThan constructor.
-     * @param array $collection
      * @param array $dates
+     * @param array $collection
      * @param bool $equal
      */
-    public function __construct(array $collection, array $dates, $equal = false)
+    public function __construct(array $dates, array $collection, $equal = false)
     {
+        parent::__construct($dates);
         $this->collection = $collection;
-        $this->dates = $dates;
         $this->equal = $equal;
-        $this->execute();
+        $this->filterRule()->sortData();
     }
 
     /**
-     * @return mixed|void
+     * @return $this|mixed
      */
-    public function execute()
+    public function filterRule()
     {
-        $this->collection = array_values(
-            array_filter($this->collection, function (Holiday $holiday) {
+        $this->filteredData = array_filter($this->collection, function (Holiday $holiday) {
+            if ($this->equal) {
+                return $holiday->getTimestamp() <= $this->getStartDate()->getTimestamp();
+            }
+            return $holiday->getTimestamp() < $this->getStartDate()->getTimestamp();
+        });
 
-                list($date) = $this->dates;
+        return $this;
+    }
 
-                if ($this->equal) {
-                    return $holiday->getTimestamp() <= $date->getTimestamp();
-                }
+    /**
+     * @return $this
+     */
+    public function sortData()
+    {
+        $this->filteredData = array_values($this->filteredData);
 
-                return $holiday->getTimestamp() < $date->getTimestamp();
-            })
-        );
+        return $this;
     }
 
     /**
      * @return array
      */
-    public function get()
+    public function getFilteredData()
     {
-        return $this->collection;
+        return $this->filteredData;
     }
 }

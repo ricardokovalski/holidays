@@ -9,7 +9,7 @@ use Holidays\Contract\Holiday;
  * Class Between
  * @package Holidays\Filters
  */
-class Between implements Filter
+class Between extends AbstractFilter implements Filter
 {
     /**
      * @var $collection array
@@ -17,40 +17,50 @@ class Between implements Filter
     private $collection = [];
 
     /**
-     * @var $dates array
+     * @var $filteredData array
      */
-    private $dates = [];
+    private $filteredData = [];
 
     /**
      * Between constructor.
      * @param array $collection
      * @param array $dates
      */
-    public function __construct(array $collection, array $dates)
+    public function __construct(array $dates, array $collection)
     {
+        parent::__construct($dates);
         $this->collection = $collection;
-        $this->dates = $dates;
-        $this->execute();
+        $this->filterRule()->sortData();
     }
 
     /**
-     * @return mixed|void
+     * @return array|mixed
      */
-    public function execute()
+    public function filterRule()
     {
-        $this->collection = array_values(
-            array_filter($this->collection, function (Holiday $holiday) {
-                list($startDate, $endDate) = $this->dates;
-                return $holiday->getTimestamp() >= $startDate->getTimestamp() && $holiday->getTimestamp() <= $endDate->getTimestamp();
-            })
-        );
+        $this->filteredData = array_filter($this->collection, function (Holiday $holiday) {
+            return $holiday->getTimestamp() >= $this->getStartDate()->getTimestamp() &&
+                $holiday->getTimestamp() <= $this->getEndDate()->getTimestamp();
+        });
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function sortData()
+    {
+        $this->filteredData = array_values($this->filteredData);
+
+        return $this;
     }
 
     /**
      * @return array
      */
-    public function get()
+    public function getFilteredData()
     {
-        return $this->collection;
+        return $this->filteredData;
     }
 }

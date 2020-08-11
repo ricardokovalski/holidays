@@ -1,4 +1,5 @@
 .idea/
 vendor/
+tests/build/
 composer.lock
 index.php

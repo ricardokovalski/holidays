@@ -6,25 +6,11 @@ namespace Holidays\Domain;
  * Class TypeHoliday
  * @package Holidays\Domain
  */
-class TypeHoliday extends EnumType
+class TypeHoliday
 {
-    const NATIONAL_HOLIDAY = 'national_holiday';
+    const NATIONAL = 'national';
 
-    const OPTIONAL_HOLIDAY = 'optional_holiday';
+    const OPTIONAL = 'optional';
 
     const SEASON = 'season';
-
-    /**
-     * @param bool $readable
-     * @return mixed
-     */
-    public static function all($readable = false)
-    {
-        return self::readable([
-            self::NATIONAL_HOLIDAY => self::NATIONAL_HOLIDAY,
-            self::OPTIONAL_HOLIDAY => self::OPTIONAL_HOLIDAY,
-            self::SEASON => self::SEASON,
-        ], $readable);
-    }
-
 }

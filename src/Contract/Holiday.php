@@ -34,11 +34,6 @@ interface Holiday
     /**
      * @return mixed
      */
-    public function isNational();
-
-    /**
-     * @return mixed
-     */
     public function getType();
 
     /**

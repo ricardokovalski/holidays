@@ -28,7 +28,7 @@ class NationalHolidays extends AbstractCollection
     {
         $this->collection = array_values(
             array_filter($this->getCollection(), function (Holiday $holiday) {
-                return $holiday->getType() == TypeHoliday::NATIONAL_HOLIDAY;
+                return $holiday->getType() == TypeHoliday::NATIONAL;
             })
         );
     }

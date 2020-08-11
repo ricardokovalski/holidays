@@ -26,32 +26,18 @@ class TiradentesDay extends AbstractHoliday
     }
 
     /**
-     * @return bool|mixed
-     */
-    protected function national()
-    {
-        return true;
-    }
-
-    /**
      * @return mixed|string
      */
     protected function type()
     {
-        return \Holidays\Domain\TypeHoliday::NATIONAL_HOLIDAY;
+        return \Holidays\Domain\TypeHoliday::NATIONAL;
     }
 
     /**
-     * @param $year
-     * @return false|int
+     * @return false|int|mixed
      */
-    protected function timestamp($year)
+    protected function timestamp()
     {
-        if ($year) {
-            return strtotime("21 April {$year}");
-        }
-
-        $year = date('Y');
-        return strtotime("21 April {$year}");
+        return strtotime("21 April {$this->getYear()}");
     }
 }

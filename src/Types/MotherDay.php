@@ -26,28 +26,18 @@ class MotherDay extends AbstractHoliday
     }
 
     /**
-     * @return bool|mixed
-     */
-    protected function national()
-    {
-        return false;
-    }
-
-    /**
      * @return mixed|string
      */
     protected function type()
     {
-        return \Holidays\Domain\TypeHoliday::OPTIONAL_HOLIDAY;
+        return \Holidays\Domain\TypeHoliday::OPTIONAL;
     }
 
     /**
-     * @param $year
-     * @return false|int
+     * @return false|int|mixed
      */
-    protected function timestamp($year)
+    protected function timestamp()
     {
-        $year = $year ?: date('Y');
-        return strtotime("second Sunday of May {$year}");
+        return strtotime("second Sunday of May {$this->getYear()}");
     }
 }

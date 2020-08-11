@@ -26,14 +26,6 @@ class JuneSolstice extends AbstractHoliday
     }
 
     /**
-     * @return bool|mixed
-     */
-    protected function national()
-    {
-        return false;
-    }
-
-    /**
      * @return mixed|string
      */
     protected function type()
@@ -42,12 +34,10 @@ class JuneSolstice extends AbstractHoliday
     }
 
     /**
-     * @param $year
-     * @return false|int
+     * @return false|int|mixed
      */
-    protected function timestamp($year)
+    protected function timestamp()
     {
-        $year = $year ?: date('Y');
-        return strtotime("20 June {$year}");
+        return strtotime("20 June {$this->getYear()}");
     }
 }

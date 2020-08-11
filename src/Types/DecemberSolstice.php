@@ -26,14 +26,6 @@ class DecemberSolstice extends AbstractHoliday
     }
 
     /**
-     * @return bool|mixed
-     */
-    protected function national()
-    {
-        return false;
-    }
-
-    /**
      * @return mixed|string
      */
     protected function type()
@@ -42,12 +34,10 @@ class DecemberSolstice extends AbstractHoliday
     }
 
     /**
-     * @param $year
-     * @return false|int
+     * @return false|int|mixed
      */
-    protected function timestamp($year)
+    protected function timestamp()
     {
-        $year = $year ?: date('Y');
-        return strtotime("21 December {$year}");
+        return strtotime("21 December {$this->getYear()}");
     }
 }

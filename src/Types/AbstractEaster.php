@@ -2,6 +2,9 @@
 
 namespace Holidays\Types;
 
+use DateInterval;
+use DateTime;
+
 /**
  * Class AbstractEaster
  * @package Holidays\Types
@@ -9,24 +12,16 @@ namespace Holidays\Types;
 abstract class AbstractEaster extends AbstractHoliday
 {
     /**
-     * @return float|int
-     */
-    protected function getNumberSecondsFromOneDay()
-    {
-        return 60 * 60 * 24;
-    }
-
-    /**
      * @param $year
      * @return int
+     * @throws \Exception
      */
     protected function getDateEaster($year)
     {
-        if ($year) {
-            return easter_date($year);
-        }
+        $days = easter_days($year);
 
-        return easter_date();
+        return (new DateTime("{$year}-03-21"))
+            ->add(new DateInterval("P{$days}D"))
+            ->getTimestamp();
     }
-
 }

@@ -26,47 +26,39 @@ class EasterSunday extends AbstractEaster
     }
 
     /**
-     * @return bool|mixed
-     */
-    protected function national()
-    {
-        return true;
-    }
-
-    /**
      * @return mixed|string
      */
     protected function type()
     {
-        return \Holidays\Domain\TypeHoliday::NATIONAL_HOLIDAY;
+        return \Holidays\Domain\TypeHoliday::NATIONAL;
     }
 
     /**
-     * @param $year
-     * @return int
+     * @return int|mixed
+     * @throws \Exception
      */
-    protected function timestamp($year)
+    protected function timestamp()
     {
-        return $this->getDateEaster($year);
+        return $this->getDateEaster($this->getYear());
     }
 
     /**
      * @param string $format
      * @return false|int|mixed|string
+     * @throws \Exception
      */
     public function next($format = AbstractHoliday::FORMAT)
     {
-        $year = $this->getYear() ?: date('Y');
-        return date($format, $this->getDateEaster($year + 1));
+        return date($format, $this->getDateEaster($this->getYear() + 1));
     }
 
     /**
-     * @param $format
-     * @return mixed
+     * @param string $format
+     * @return false|int|mixed|string
+     * @throws \Exception
      */
     public function previous($format = AbstractHoliday::FORMAT)
     {
-        $year = $this->getYear() ?: date('Y');
-        return date($format, $this->getDateEaster($year - 1));
+        return date($format, $this->getDateEaster($this->getYear() - 1));
     }
 }

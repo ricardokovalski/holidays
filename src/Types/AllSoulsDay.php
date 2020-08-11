@@ -26,28 +26,18 @@ class AllSoulsDay extends AbstractHoliday
     }
 
     /**
-     * @return bool|mixed
-     */
-    protected function national()
-    {
-        return true;
-    }
-
-    /**
      * @return mixed|string
      */
     protected function type()
     {
-        return \Holidays\Domain\TypeHoliday::NATIONAL_HOLIDAY;
+        return \Holidays\Domain\TypeHoliday::NATIONAL;
     }
 
     /**
-     * @param $year
-     * @return false|int
+     * @return false|int|mixed
      */
-    protected function timestamp($year)
+    protected function timestamp()
     {
-        $year = $year ?: date('Y');
-        return strtotime("02 November {$year}");
+        return strtotime("02 November {$this->getYear()}");
     }
 }

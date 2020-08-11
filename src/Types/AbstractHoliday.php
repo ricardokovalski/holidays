@@ -18,11 +18,6 @@ abstract class AbstractHoliday implements Holiday
     protected $name;
 
     /**
-     * @var $isNational
-     */
-    protected $isNational;
-
-    /**
      * @var $type
      */
     protected $type;
@@ -43,11 +38,10 @@ abstract class AbstractHoliday implements Holiday
      */
     public function __construct($year = null)
     {
-        $this->year = $year;
+        $this->year = $year ?: (int) date('Y');
         $this->makeName();
-        $this->makeNational();
         $this->makeType();
-        $this->makeTimestamp($year);
+        $this->makeTimestamp();
     }
 
     /**
@@ -58,18 +52,12 @@ abstract class AbstractHoliday implements Holiday
     /**
      * @return mixed
      */
-    abstract protected function national();
-
-    /**
-     * @return mixed
-     */
     abstract protected function type();
 
     /**
-     * @param $year
      * @return mixed
      */
-    abstract protected function timestamp($year);
+    abstract protected function timestamp();
 
     /**
      * @return mixed
@@ -82,26 +70,17 @@ abstract class AbstractHoliday implements Holiday
     /**
      * @return mixed
      */
-    protected function makeNational()
-    {
-        return $this->isNational = $this->national();
-    }
-
-    /**
-     * @return mixed
-     */
     protected function makeType()
     {
         return $this->type = $this->type();
     }
 
     /**
-     * @param $year
      * @return mixed
      */
-    protected function makeTimestamp($year)
+    protected function makeTimestamp()
     {
-        return $this->timestamp = $this->timestamp($year);
+        return $this->timestamp = $this->timestamp();
     }
 
     /**
@@ -119,7 +98,7 @@ abstract class AbstractHoliday implements Holiday
      */
     public function next($format = self::FORMAT)
     {
-        return date($format, strtotime('+ 1 Years', $this->getTimestamp()));
+        return date($format, strtotime("+ 1 Years", $this->getTimestamp()));
     }
 
     /**
@@ -128,7 +107,7 @@ abstract class AbstractHoliday implements Holiday
      */
     public function previous($format = self::FORMAT)
     {
-        return date($format, strtotime('- 1 Years', $this->getTimestamp()));
+        return date($format, strtotime("- 1 Years", $this->getTimestamp()));
     }
 
     /**
@@ -137,14 +116,6 @@ abstract class AbstractHoliday implements Holiday
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function isNational()
-    {
-        return $this->isNational;
     }
 
     /**

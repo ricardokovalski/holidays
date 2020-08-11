@@ -26,47 +26,39 @@ class CorpusChrist extends AbstractEaster
     }
 
     /**
-     * @return bool|mixed
-     */
-    protected function national()
-    {
-        return false;
-    }
-
-    /**
      * @return mixed|string
      */
     protected function type()
     {
-        return \Holidays\Domain\TypeHoliday::OPTIONAL_HOLIDAY;
+        return \Holidays\Domain\TypeHoliday::OPTIONAL;
     }
 
     /**
-     * @param $year
-     * @return float|int
+     * @return float|int|mixed
+     * @throws \Exception
      */
-    protected function timestamp($year)
+    protected function timestamp()
     {
-        return $this->getDateEaster($year) + (60 * $this->getNumberSecondsFromOneDay());
+        return $this->getDateEaster($this->getYear()) + 60 * 86400;
     }
 
     /**
      * @param string $format
      * @return false|int|mixed|string
+     * @throws \Exception
      */
     public function next($format = AbstractHoliday::FORMAT)
     {
-        $year = $this->getYear() ?: date('Y');
-        return date($format, $this->getDateEaster($year + 1) + (60 * $this->getNumberSecondsFromOneDay()));
+        return date($format, $this->getDateEaster($this->getYear() + 1) + 60 * 86400);
     }
 
     /**
      * @param string $format
      * @return false|int|mixed|string
+     * @throws \Exception
      */
     public function previous($format = AbstractHoliday::FORMAT)
     {
-        $year = $this->getYear() ?: date('Y');
-        return date($format, $this->getDateEaster($year - 1) + (60 * $this->getNumberSecondsFromOneDay()));
+        return date($format, $this->getDateEaster($this->getYear() - 1) + 60 * 86400);
     }
 }

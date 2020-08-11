@@ -26,47 +26,39 @@ class Carnival extends AbstractEaster
     }
 
     /**
-     * @return bool|mixed
-     */
-    protected function national()
-    {
-        return false;
-    }
-
-    /**
      * @return mixed|string
      */
     protected function type()
     {
-        return \Holidays\Domain\TypeHoliday::OPTIONAL_HOLIDAY;
+        return \Holidays\Domain\TypeHoliday::OPTIONAL;
     }
 
     /**
-     * @param $year
-     * @return float|int
+     * @return float|int|mixed
+     * @throws \Exception
      */
-    protected function timestamp($year)
+    protected function timestamp()
     {
-        return $this->getDateEaster($year) - (47 * $this->getNumberSecondsFromOneDay());
+        return $this->getDateEaster($this->getYear()) - 47 * 86400;
     }
 
     /**
      * @param string $format
      * @return false|int|mixed|string
+     * @throws \Exception
      */
     public function next($format = AbstractHoliday::FORMAT)
     {
-        $year = $this->getYear() ?: date('Y');
-        return date($format, $this->getDateEaster($year + 1) - (47 * $this->getNumberSecondsFromOneDay()));
+        return date($format, $this->getDateEaster($this->getYear() + 1) - 47 * 86400);
     }
 
     /**
      * @param string $format
      * @return false|int|mixed|string
+     * @throws \Exception
      */
     public function previous($format = AbstractHoliday::FORMAT)
     {
-        $year = $this->getYear() ?: date('Y');
-        return date($format, $this->getDateEaster($year - 1) - (47 * $this->getNumberSecondsFromOneDay()));
+        return date($format, $this->getDateEaster($this->getYear() - 1) - 47 * 86400);
     }
 }

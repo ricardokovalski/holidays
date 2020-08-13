@@ -29,5 +29,10 @@
         "psr-4": {
           "Holidays\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Holidays\\Tests\\": "tests/"
+        }
     }
 }

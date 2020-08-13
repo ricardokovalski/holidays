@@ -1,13 +1,12 @@
 <?php
 
-use Holidays\Collections\AllHolidays;
-
-class AllHolidaysTest extends \PHPUnit_Framework_TestCase
+class HolidaysTest
 {
     private $collection;
 
-    public function setUp() {
-        $this->collection = new AllHolidays();
+    public function setUp()
+    {
+        $this->collection = new Holidays\Collections\AllHolidays();
     }
 
     public function testAssertEqualsAllHolidaysCollection()
@@ -18,12 +17,9 @@ class AllHolidaysTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testCountCollection()
+    public function testAssertEqualLengthCollection()
     {
-        $this->assertCount(
-            19,
-            $this->collection->getCollection()
-        );
+        $this->assertEquals(19, $this->collection->length());
     }
 
     public function testAssertEqualPluckByName()
@@ -38,6 +34,21 @@ class AllHolidaysTest extends \PHPUnit_Framework_TestCase
                 ->orderByName()
                 ->ascending()
                 ->pluckByName()
+        );
+    }
+
+    public function testAssertEqualPluckByTimestamp()
+    {
+        $this->assertEquals(
+
+            array_map(function(\Holidays\Contract\Holiday $element) {
+                return $element->getTimestamp();
+            }, $this->expectedCollectionOrderByTimestampAscending()),
+
+            $this->collection
+                ->orderByTimestamp()
+                ->ascending()
+                ->pluckBytimestamp()
         );
     }
 
@@ -188,7 +199,7 @@ class AllHolidaysTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    private function expectedCollectionDefault()
+    public function expectedCollectionDefault()
     {
         return [
             new \Holidays\Types\AllSoulsDay(),
@@ -213,7 +224,7 @@ class AllHolidaysTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    private function expectedCollectionOrderByNameAscending()
+    public function expectedCollectionOrderByNameAscending()
     {
         $collection = $this->expectedCollectionDefault();
 
@@ -224,12 +235,18 @@ class AllHolidaysTest extends \PHPUnit_Framework_TestCase
         return $collection;
     }
 
-    private function expectedCollectionOrderByNameDescending()
+    public function expectedCollectionOrderByNameDescending()
     {
-        return array_reverse($this->expectedCollectionOrderByNameAscending());
+        $collection = $this->expectedCollectionDefault();
+
+        usort($collection, function(\Holidays\Contract\Holiday $a, \Holidays\Contract\Holiday $b) {
+            return $a->getName() < $b->getName();
+        });
+
+        return $collection;
     }
 
-    private function expectedCollectionOrderByTimestampAscending()
+    public function expectedCollectionOrderByTimestampAscending()
     {
         $collection = $this->expectedCollectionDefault();
 
@@ -240,7 +257,7 @@ class AllHolidaysTest extends \PHPUnit_Framework_TestCase
         return $collection;
     }
 
-    private function expectedCollectionOrderByTimestampDescending()
+    public function expectedCollectionOrderByTimestampDescending()
     {
         $collection = $this->expectedCollectionDefault();
 

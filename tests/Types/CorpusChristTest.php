@@ -1,6 +1,6 @@
 <?php
 
-class CarnivalTest extends \PHPUnit_Framework_TestCase
+class CorpusChristTest extends \PHPUnit_Framework_TestCase
 {
     public $year;
 
@@ -9,30 +9,44 @@ class CarnivalTest extends \PHPUnit_Framework_TestCase
         $this->year = date('Y');
     }
 
-    public function testAssertEqualsPreviousCarnival()
+    public function testAssertEqualsPreviousCorpusChrist()
     {
-        $carnival = current($this->expectedCollectionWithCarnival($this->year - 1));
+        $previousYear = $this->year - 1;
+
+        $corpusChrist = current($this->expectedCollectionWithCorpusChrist($previousYear));
 
         $this->assertEquals(
-            (new \Holidays\Types\Carnival($this->year - 1))->previous(),
-            $carnival->previous()
+            (new \Holidays\Types\CorpusChrist($previousYear))->previous(),
+            $corpusChrist->previous()
         );
     }
 
-    public function testAssertEqualsNextCarnival()
+    public function testAssertEqualsNextCorpusChrist()
     {
-        $carnival = current($this->expectedCollectionWithCarnival($this->year - 1));
+        $nextYear = $this->year + 1;
+
+        $corpusChrist = current($this->expectedCollectionWithCorpusChrist($nextYear));
 
         $this->assertEquals(
-            (new \Holidays\Types\Carnival($this->year - 1))->next(),
-            $carnival->next()
+            (new \Holidays\Types\CorpusChrist($nextYear))->next(),
+            $corpusChrist->next()
         );
     }
 
-    public function expectedCollectionWithCarnival($year)
+    public function testAssertEqualsFormatterDateCorpusChrist()
+    {
+        $corpusChrist = current($this->expectedCollectionWithCorpusChrist($this->year));
+
+        $this->assertEquals(
+            (new \Holidays\Types\CorpusChrist($this->year))->formatter(),
+            $corpusChrist->formatter()
+        );
+    }
+
+    public function expectedCollectionWithCorpusChrist($year)
     {
         return [
-            new \Holidays\Types\Carnival($year),
+            new \Holidays\Types\CorpusChrist($year),
         ];
     }
 }

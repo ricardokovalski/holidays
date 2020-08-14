@@ -1,29 +1,18 @@
 <?php
 
-use Holidays\Collections\Seasons;
-
 class SeasonsTest extends \PHPUnit_Framework_TestCase
 {
     private $collection;
+    private $actualYear;
 
     public function setUp() {
-        $this->collection = new Seasons();
+        $this->collection = new Holidays\Collections\Seasons();
+        $this->actualYear = (int) date('Y');
     }
 
-    public function testAssertEqualsSeasonsCollection()
+    public function testAssertEqualsLengthCollection()
     {
-        $this->assertEquals(
-            $this->expectedCollectionDefault(),
-            $this->collection->getCollection()
-        );
-    }
-
-    public function testCountCollection()
-    {
-        $this->assertCount(
-            4,
-            $this->collection->getCollection()
-        );
+        $this->assertEquals(4,$this->collection->length());
     }
 
     public function testAssertEqualPluckByName()
@@ -188,19 +177,19 @@ class SeasonsTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    private function expectedCollectionDefault()
+    private function expectedCollectionDefault($year)
     {
         return [
-            new Holidays\Types\DecemberSolstice(),
-            new Holidays\Types\JuneSolstice(),
-            new Holidays\Types\MarchEquinox(),
-            new Holidays\Types\SeptemberEquinox(),
+            new Holidays\Types\DecemberSolstice($year),
+            new Holidays\Types\JuneSolstice($year),
+            new Holidays\Types\MarchEquinox($year),
+            new Holidays\Types\SeptemberEquinox($year),
         ];
     }
 
     private function expectedCollectionOrderByNameAscending()
     {
-        $collection = $this->expectedCollectionDefault();
+        $collection = $this->expectedCollectionDefault($this->getActualYear());
 
         usort($collection, function(\Holidays\Contract\Holiday $a, \Holidays\Contract\Holiday $b) {
             return $a->getName() > $b->getName();
@@ -216,7 +205,7 @@ class SeasonsTest extends \PHPUnit_Framework_TestCase
 
     private function expectedCollectionOrderByTimestampAscending()
     {
-        $collection = $this->expectedCollectionDefault();
+        $collection = $this->expectedCollectionDefault($this->getActualYear());
 
         usort($collection, function(\Holidays\Contract\Holiday $a, \Holidays\Contract\Holiday $b) {
             return $a->getTimestamp() > $b->getTimestamp();
@@ -227,12 +216,17 @@ class SeasonsTest extends \PHPUnit_Framework_TestCase
 
     private function expectedCollectionOrderByTimestampDescending()
     {
-        $collection = $this->expectedCollectionDefault();
+        $collection = $this->expectedCollectionDefault($this->getActualYear());
 
         usort($collection, function(\Holidays\Contract\Holiday $a, \Holidays\Contract\Holiday $b) {
             return $a->getTimestamp() < $b->getTimestamp();
         });
 
         return $collection;
+    }
+
+    public function getActualYear()
+    {
+        return $this->actualYear;
     }
 }

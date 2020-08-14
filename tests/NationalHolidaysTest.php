@@ -1,21 +1,18 @@
 <?php
 
-use Holidays\Collections\NationalHolidays;
-
 class NationalHolidaysTest extends \PHPUnit_Framework_TestCase
 {
     private $collection;
+    private $actualYear;
 
     public function setUp() {
-        $this->collection = new NationalHolidays();
+        $this->collection = new Holidays\Collections\NationalHolidays();
+        $this->actualYear = (int) date('Y');
     }
 
-    public function testCountCollection()
+    public function testAssertEqualsLengthCollection()
     {
-        $this->assertCount(
-            11,
-            $this->collection->getCollection()
-        );
+        $this->assertEquals(11, $this->collection->length());
     }
 
     public function testAssertEqualPluckByName()
@@ -164,26 +161,26 @@ class NationalHolidaysTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    private function expectedCollectionDefault()
+    private function expectedCollectionDefault($year)
     {
         return [
-            new \Holidays\Types\AllSoulsDay(),
-            new \Holidays\Types\ChildrenDay(),
-            new \Holidays\Types\ChristmasDay(),
-            new \Holidays\Types\EasterSunday(),
-            new \Holidays\Types\GoodFriday(),
-            new \Holidays\Types\IndependenceBrazil(),
-            new \Holidays\Types\LaborDay(),
-            new \Holidays\Types\NewYearsDay(),
-            new \Holidays\Types\OurLadyOfAparecida(),
-            new \Holidays\Types\RepublicProclamationDay(),
-            new \Holidays\Types\TiradentesDay(),
+            new \Holidays\Types\AllSoulsDay($year),
+            new \Holidays\Types\ChildrenDay($year),
+            new \Holidays\Types\ChristmasDay($year),
+            new \Holidays\Types\EasterSunday($year),
+            new \Holidays\Types\GoodFriday($year),
+            new \Holidays\Types\IndependenceBrazil($year),
+            new \Holidays\Types\LaborDay($year),
+            new \Holidays\Types\NewYearsDay($year),
+            new \Holidays\Types\OurLadyOfAparecida($year),
+            new \Holidays\Types\RepublicProclamationDay($year),
+            new \Holidays\Types\TiradentesDay($year),
         ];
     }
 
     private function expectedCollectionOrderByNameAscending()
     {
-        $collection = $this->expectedCollectionDefault();
+        $collection = $this->expectedCollectionDefault($this->getActualYear());
 
         usort($collection, function(\Holidays\Contract\Holiday $a, \Holidays\Contract\Holiday $b) {
             return $a->getName() > $b->getName();
@@ -199,7 +196,7 @@ class NationalHolidaysTest extends \PHPUnit_Framework_TestCase
 
     private function expectedCollectionOrderByTimestampAscending()
     {
-        $collection = $this->expectedCollectionDefault();
+        $collection = $this->expectedCollectionDefault($this->getActualYear());
 
         usort($collection, function(\Holidays\Contract\Holiday $a, \Holidays\Contract\Holiday $b) {
             return $a->getTimestamp() > $b->getTimestamp();
@@ -210,12 +207,17 @@ class NationalHolidaysTest extends \PHPUnit_Framework_TestCase
 
     private function expectedCollectionOrderByTimestampDescending()
     {
-        $collection = $this->expectedCollectionDefault();
+        $collection = $this->expectedCollectionDefault($this->getActualYear());
 
         usort($collection, function(\Holidays\Contract\Holiday $a, \Holidays\Contract\Holiday $b) {
             return $a->getTimestamp() < $b->getTimestamp();
         });
 
         return $collection;
+    }
+
+    public function getActualYear()
+    {
+        return $this->actualYear;
     }
 }

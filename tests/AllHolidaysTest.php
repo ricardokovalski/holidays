@@ -11,7 +11,7 @@ class AllHolidaysTest extends \PHPUnit_Framework_TestCase
         $this->actualYear = (int) date('Y');
     }
 
-    public function testAssertEqualLengthCollection()
+    public function testAssertEqualsLengthCollection()
     {
         $this->assertEquals(19, $this->collection->length());
     }
@@ -190,42 +190,6 @@ class AllHolidaysTest extends \PHPUnit_Framework_TestCase
                 ->orderByTimestamp()
                 ->descending()
                 ->last()
-        );
-    }
-
-    public function testAssertEqualsFormatterDate()
-    {
-        $this->assertEquals(
-            (new \Holidays\Types\NewYearsDay())->formatter(),
-            $this->collection
-                ->orderByTimestamp()
-                ->descending()
-                ->last()
-                ->formatter()
-        );
-    }
-
-    public function testAssertEqualsNextHolidayFormatter()
-    {
-        $this->assertEquals(
-            (new \Holidays\Types\NewYearsDay())->next(),
-            $this->collection
-                ->orderByTimestamp()
-                ->descending()
-                ->last()
-                ->next()
-        );
-    }
-
-    public function testAssertEqualsPreviousHolidayFormatter()
-    {
-        $this->assertEquals(
-            (new \Holidays\Types\NewYearsDay())->previous(),
-            $this->collection
-                ->orderByTimestamp()
-                ->descending()
-                ->last()
-                ->previous()
         );
     }
 

@@ -97,7 +97,7 @@ abstract class AbstractCollection implements Collection
     public function ascending()
     {
         usort($this->collection, function(Holiday $a, Holiday $b) {
-            return $a->{$this->sortField}() > $b->{$this->sortField}();
+            return $a->{$this->sortField}() <=> $b->{$this->sortField}();
         });
 
         return $this;
@@ -109,7 +109,7 @@ abstract class AbstractCollection implements Collection
     public function descending()
     {
         usort($this->collection, function(Holiday $a, Holiday $b) {
-            return $a->{$this->sortField}() < $b->{$this->sortField}();
+            return ($a->{$this->sortField}() <=> $b->{$this->sortField}()) * -1;
         });
 
         return $this;
